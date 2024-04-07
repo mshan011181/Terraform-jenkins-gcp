@@ -6,7 +6,7 @@ provider "google" {
   project = local.project_id
   region  = "us-west1"
   zone    = "us-west1-b"
-  credentials = "devops-project-1"
+  credentials = "10de789b-f9df-4ad8-ba9e-caa922bc9df5"
 }
 
 resource "google_project_service" "compute_service" {
