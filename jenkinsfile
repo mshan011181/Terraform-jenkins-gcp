@@ -1,0 +1,62 @@
+pipeline{
+    agent any
+          parameters {
+          choice(name: 'TerraformAction', choices: 'Deploy\nDestroy', description: 'Select the action to perform')
+                   }
+          environment {
+          CLOUDSDK_CORE_PROJECT='devops-project1-418302'         
+                   }
+    stages{
+           stage('Git checkout'){
+              steps{
+              git credentialsId: '4974a9ad-a133-47c9-b173-fc09cbabf178', url: 'https://github.com/mshan011181/gcp-jenkins-terraform-integration.git'
+                     }
+                  }
+           stage('Initialize'){                  
+                          when {
+                          expression {
+                         // return params.TerraformAction == 'Deploy'
+                         return params.TerraformAction == 'Deploy' || params.TerraformAction == 'Destroy'
+                                     }    
+                            }
+                         steps{                
+                         sh 'terraform init'            
+                             }
+                     }
+          stage('Plan'){
+                          when {
+                          expression {
+                         // return params.TerraformAction == 'Deploy'
+                         return params.TerraformAction == 'Deploy' || params.TerraformAction == 'Destroy'
+                             }
+                          } 
+                          steps{               
+                          sh 'terraform plan'
+                             }
+                    }
+        stage('Apply'){
+                          when {
+                          expression {
+                          return params.TerraformAction == 'Deploy'
+                             }
+                          } 
+                          steps{               
+                          sh 'terraform apply -auto-approve'
+                             }
+                    }
+        stage('destroy'){
+                           when {
+                          expression {
+                          return params.TerraformAction == 'Destroy'
+                                  }    
+                            }  
+                           steps{               
+                           sh '''
+                             terraform state list
+                             terraform state rm google_project_service.compute_service
+                             terraform destroy -auto-approve
+                            '''
+                                 }
+                       }
+        }
+}
