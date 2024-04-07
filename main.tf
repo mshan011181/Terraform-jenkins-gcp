@@ -6,7 +6,7 @@ provider "google" {
   project = local.project_id
   region  = "us-west1"
   zone    = "us-west1-b"
-  credentials = "/home/shandba89/jenkins-gce.json"
+  credentials = "/home/shandba90/jenkins-gce.json"
 }
 
 resource "google_project_service" "compute_service" {
