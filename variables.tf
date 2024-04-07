@@ -2,7 +2,7 @@
 variable "project_id" {
   description = "The ID of the Google Cloud Platform project"
   type        = string
-  default     = "devops-project1-418302"
+  default     = "devops-project-1-419603"
 }
 
 variable "region" {
