@@ -4,7 +4,7 @@ pipeline{
           choice(name: 'TerraformAction', choices: 'Deploy\nDestroy', description: 'Select the action to perform')
                    }
           environment {
-          CLOUDSDK_CORE_PROJECT='devops-project1-418302'         
+          CLOUDSDK_CORE_PROJECT='devops-project-1-419603'         
                    }
     stages{
            stage('Git checkout'){
