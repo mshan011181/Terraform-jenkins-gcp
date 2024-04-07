@@ -9,7 +9,7 @@ pipeline{
     stages{
            stage('Git checkout'){
               steps{
-              git credentialsId: '', url: 'https://github.com/mshan011181/gcp-jenkins-terraform-integration.git'
+              git credentialsId: '', url: 'https://github.com/mshan011181/Terraform-jenkins-gcp.git'
                      }
                   }
            stage('Initialize'){                  
