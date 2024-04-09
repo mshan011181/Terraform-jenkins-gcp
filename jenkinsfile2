@@ -23,7 +23,7 @@ pipeline{
                          steps{ 
                          sh '''
                          gcloud auth activate-service-account --key-file=${GCP_SERVICE_ACCOUNT}
-                         gcloud auth application-default login
+                         gcloud auth application-default login --quiet
                          terraform init            
                          '''
                              }
