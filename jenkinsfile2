@@ -22,7 +22,8 @@ pipeline{
                             }
                          steps{ 
                          sh '''
-                         terraform init -reconfigure                                  
+                         export GOOGLE_APPLICATION_CREDENTIALS=
+                         terraform init                                   
                          '''
                              }
                      }
