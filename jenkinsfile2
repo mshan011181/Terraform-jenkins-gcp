@@ -34,8 +34,11 @@ pipeline{
                          return params.TerraformAction == 'Deploy' || params.TerraformAction == 'Destroy'
                              }
                           } 
-                          steps{               
-                          sh 'terraform plan'
+                          steps{ 
+                          sh '''
+                          export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json 
+                          terraform plan
+                          ''' 
                              }
                     }
         stage('Apply'){
