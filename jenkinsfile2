@@ -24,7 +24,7 @@ pipeline{
                          sh '''
                          gcloud auth activate-service-account --key-file=${GCP_SERVICE_ACCOUNT}
                          terraform init            
-                         sh '''
+                         '''
                              }
                      }
           stage('Plan'){
