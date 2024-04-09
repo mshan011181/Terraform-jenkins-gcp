@@ -20,8 +20,11 @@ pipeline{
                          return params.TerraformAction == 'Deploy' || params.TerraformAction == 'Destroy'
                                      }    
                             }
-                         steps{                
-                         sh 'terraform init'            
+                         steps{ 
+                         sh '''
+                         gcloud auth activate-service-account --key-file=${GCP_SERVICE_ACCOUNT}
+                         terraform init            
+                         sh '''
                              }
                      }
           stage('Plan'){
