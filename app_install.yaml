@@ -1,0 +1,42 @@
+- hosts: myvm
+  become: yes
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Configure Nginx
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Start Nginx
+      service:
+        name: nginx
+        state: started
+
+    - name: Download New Relic Repository Key
+      get_url:
+        url: https://download.newrelic.com/548C16BF.gpg
+        dest: /etc/apt/trusted.gpg.d/newrelic-archive-key.asc
+
+    - name: Add New Relic Repository
+      apt_repository:
+        repo: 'deb http://download.newrelic.com/debian/ newrelic non-free'
+        state: present
+
+    - name: Install New Relic Infrastructure Agent
+      apt:
+        name: newrelic-infra
+        state: present
+
+    - name: Configure New Relic License Key
+      ini_file:
+        dest: /etc/newrelic-infra.yml
+        section: license_key
+        option: license_key
+        value: YOUR_LICENSE_KEY
