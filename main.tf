@@ -73,13 +73,13 @@ resource "google_compute_instance" "vm_instance" {
       image = "debian-12-bookworm-v20240312"
     }
   }
-
-  network_interface {
+ 
+ network_interface {
     network = google_compute_network.vpc_network.self_link
     subnetwork = google_compute_subnetwork.private_network.self_link  
-          access_config {
-          ...
-          nat_ip = google_compute_address.static-ip.address
-               }
-     }
+    
+    access_config {
+        nat_ip = google_compute_address.static-ip.address
+            }
+        } 
 }
