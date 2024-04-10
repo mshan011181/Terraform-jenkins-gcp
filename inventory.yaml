@@ -1,2 +1,2 @@
-[webservers]
-foo.example.com
+[webserver]
+jenkins-1-vm
