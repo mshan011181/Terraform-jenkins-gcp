@@ -1,9 +1,11 @@
----	
-- name: Disable host key checking
+---
+- name: Install and configure Nginx
   hosts: all
   become: yes
-  ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
+    - name: Disable host key checking
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
     - name: Install Nginx
       apt:
         name: nginx
