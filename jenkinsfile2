@@ -23,7 +23,7 @@ pipeline{
                          steps{ 
                          sh '''
                          export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
-                         terraform init                                   
+                         terraform init -reconfigure                                  
                          '''
                              }
                      }
