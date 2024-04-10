@@ -83,12 +83,16 @@ resource "google_compute_instance" "vm_instance" {
   name         = "test-instance"
   machine_type = "e2-medium"
   tags = ["test-instance"]
+
+  metadata = {
+      ssh-keys = "shandba90:${file("~/.ssh/id_rsa.pub")}"
+     } 
        
  boot_disk {
     initialize_params {
       image = "debian-12-bookworm-v20240312"
-    }
-  }
+      }
+     }
  
  network_interface {
     network = google_compute_network.vpc_network.self_link
