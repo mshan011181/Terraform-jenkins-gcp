@@ -83,10 +83,6 @@ resource "google_compute_instance" "vm_instance" {
   name         = "test-instance"
   machine_type = "e2-medium"
   tags = ["test-instance"]
-
-  metadata = {
-      ssh-keys = "shandba90:${file("~/.ssh/id_rsa.pub")}"
-     } 
        
  boot_disk {
     initialize_params {
@@ -104,10 +100,5 @@ resource "google_compute_instance" "vm_instance" {
         } 
 }
 
-resource "null_resource"  "ansible_provisioner" {
-  provisioner "local-exec" {
-  command = "/usr/bin/ansible-playbook -i inventory app_install_playbook.yaml"
-    }
-}
 
   
