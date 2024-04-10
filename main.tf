@@ -79,6 +79,21 @@ resource "google_compute_address" "static-ip" {
   network_tier = "PREMIUM"
 }
 
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+output "private_key" {
+  value = tls_private_key.ssh_key.private_key_pem
+  sensitive=true
+}
+
+output "public_key" {
+  value = tls_private_key.ssh_key.public_key_openssh
+  sensitive=true
+}
+
 resource "google_compute_instance" "vm_instance" {
   name         = "test-instance"
   machine_type = "e2-medium"
@@ -97,23 +112,13 @@ resource "google_compute_instance" "vm_instance" {
     access_config {
         nat_ip = google_compute_address.static-ip.address
             }
+   metadata = {
+     ssh-keys = "tls_private_key.ssh_key.public_key_openssh"
+               }
         } 
 }
 
-resource "tls_private_key" "ssh_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
 
-output "private_key" {
-  value = tls_private_key.ssh_key.private_key_pem
-  sensitive=true
-}
-
-output "public_key" {
-  value = tls_private_key.ssh_key.public_key_openssh
-  sensitive=true
-}
 
 resource "null_resource" "ansible_provisioner" {
   # Your resource configuration here
