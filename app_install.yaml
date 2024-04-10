@@ -1,4 +1,4 @@
-- hosts: myvm
+- hosts: jenkins-1-vm
   become: yes
   tasks:
     - name: Install Nginx
