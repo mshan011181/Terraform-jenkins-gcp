@@ -64,7 +64,7 @@ pipeline{
                             steps {
                              sh 'ansible-playbook -i inventory app_install_playbook.yaml'
                                   }
-
+                   }
 
         stage('destroy'){
                            when {
