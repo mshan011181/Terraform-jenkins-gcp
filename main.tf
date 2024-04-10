@@ -35,7 +35,7 @@ resource "google_compute_subnetwork" "private_network" {
 
 resource "google_compute_firewall" "firewall" {
   provider = google
-  name    = firewall"
+  name    = "firewall"
   network = google_compute_network.vpc_network.self_link 
 
   allow {
