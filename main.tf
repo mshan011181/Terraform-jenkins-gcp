@@ -115,4 +115,18 @@ output "public_key" {
   sensitive=true
 }
 
+resource "null_resource" "ansible_provisioner" {
+  # Your resource configuration here
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -i inventory app_install_playbook.yaml"
+    interpreter = ["bash", "-c"]
+
+    # Specify the SSH private key file
+    environment = {
+      "ANSIBLE_HOST_KEY_CHECKING" = "False"  # Disable host key checking
+      "ANSIBLE_SSH_ARGS" = "-o StrictHostKeyChecking=no -i /home/shandba90/private_key.pem"
+    }
+  }
+}
   
