@@ -65,10 +65,12 @@ resource "google_compute_address" "static-ip" {
 resource "google_compute_instance" "vm_instance" {
   name         = "test-instance"
   machine_type = "e2-medium"
-
   tags = ["test-instance"]
+        metadata = {
+        ssh-keys = "shandba90:${file("~/.ssh/id_rsa.pub")}"
+          }  
 
-  boot_disk {
+ boot_disk {
     initialize_params {
       image = "debian-12-bookworm-v20240312"
     }
