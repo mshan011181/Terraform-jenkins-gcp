@@ -54,17 +54,7 @@ pipeline{
                           sh '''
                              }
                     }
-
-        stage('Run Ansible') {
-             when {
-                          expression {
-                          return params.TerraformAction == 'Deploy'
-                             }
-                          } 
-                            steps {
-                             sh 'ansible-playbook -i inventory app_install_playbook.yaml'
-                                  }
-                   }
+      
 
         stage('destroy'){
                            when {
