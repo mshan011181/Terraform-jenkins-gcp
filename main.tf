@@ -125,7 +125,7 @@ resource "null_resource" "ansible_provisioner" {
     # Specify the SSH private key file
     environment = {
       "ANSIBLE_HOST_KEY_CHECKING" = "False"  # Disable host key checking
-      "ANSIBLE_SSH_ARGS" = "-o StrictHostKeyChecking=no -i private_key.pem"
+      "ANSIBLE_SSH_ARGS" = "-o StrictHostKeyChecking=no -i /tmp/private_key.pem"
     }
   }
 }
