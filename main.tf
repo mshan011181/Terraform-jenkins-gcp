@@ -66,8 +66,8 @@ resource "google_compute_instance" "vm_instance" {
   name         = "test-instance"
   machine_type = "e2-medium"
   tags = ["test-instance"]
-        metadata = {
-        ssh-keys = "shandba90:${file("~/.ssh/id_rsa.pub")}"
+        metadata = {        
+        ssh-keys = "shandba90:${file("${path.module}/~/.ssh/id_rsa.pub")}"    
           }  
 
  boot_disk {
