@@ -54,6 +54,14 @@ resource "google_compute_route" "private_network_internet_route" {
   priority    = 100
 }
 
+
+resource "google_compute_address" "static-ip" {
+  provider = google
+  name = "static-ip"
+  address_type = "EXTERNAL"
+  network_tier = "PREMIUM"
+}
+
 resource "google_compute_instance" "vm_instance" {
   name         = "test-instance"
   machine_type = "e2-medium"
@@ -68,7 +76,7 @@ resource "google_compute_instance" "vm_instance" {
 
   network_interface {
     network = google_compute_network.vpc_network.self_link
-    subnetwork = google_compute_subnetwork.private_network.self_link    
-   
-  }
+    subnetwork = google_compute_subnetwork.private_network.self_link  
+    nat_ip = google_compute_address.static-ip.address
+     }
 }
