@@ -64,7 +64,7 @@ pipeline{
                            sh ''' 
                              export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json 
                              terraform state list
-                             ##terraform state rm google_project_service.compute_service
+                             terraform state rm google_project_service.compute_service
                              terraform destroy -auto-approve
                             '''
                                  }
