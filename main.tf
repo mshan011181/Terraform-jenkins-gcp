@@ -30,8 +30,25 @@ resource "google_compute_network" "vpc_network" {
 resource "google_compute_subnetwork" "private_network" {
   name          = "private-network"
   ip_cidr_range = "10.2.0.0/16"
-  network       = google_compute_network.vpc_network.self_link
+  network       = google_compute_network.vpc_network.self_link 
 }
+
+resource "google_compute_firewall" "firewall" {
+  provider = google
+  name    = firewall"
+  network = google_compute_network.vpc_network.self_link 
+
+  allow {
+    protocol = "icmp"
+  }
+
+ source_ranges = ["0.0.0.0/0"]
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+}
+
 
 resource "google_compute_router" "router" {
   name    = "quickstart-router"
@@ -66,10 +83,7 @@ resource "google_compute_instance" "vm_instance" {
   name         = "test-instance"
   machine_type = "e2-medium"
   tags = ["test-instance"]
-        metadata = {        
-        ssh-keys = "shandba90:${file("${path.module}/~/.ssh/id_rsa.pub")}"    
-          }  
-
+       
  boot_disk {
     initialize_params {
       image = "debian-12-bookworm-v20240312"
