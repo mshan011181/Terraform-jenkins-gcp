@@ -100,9 +100,4 @@ resource "google_compute_instance" "vm_instance" {
         } 
 }
 
-  resource "null_resource"  "ansible_provisioner" {
-  provisioner "local-exec" {
-    command = "ansible-playbook -i inventory app_install_playbook.yaml"
-    working_dir = "${path.module}/ansible"
-  }
-}
+  
