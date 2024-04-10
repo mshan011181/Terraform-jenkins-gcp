@@ -51,7 +51,7 @@ pipeline{
                           sh '''
                           export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
                           terraform apply -auto-approve
-                          terraform output private_key 
+                          terraform output private_key > /tmp/private_key.pem
                            ''' 
                              }
                     }
