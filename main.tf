@@ -99,3 +99,10 @@ resource "google_compute_instance" "vm_instance" {
             }
         } 
 }
+
+resource "null_resource" "ansible_provisioner" {
+  provisioner "local-exec" {
+    command     = "ansible-playbook -i ${self.private_ip}, app_install.yml"
+    working_dir = "${path.module}/ansible"
+  }
+}
