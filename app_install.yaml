@@ -1,4 +1,4 @@
-- hosts: jenkins-1-vm
+- hosts: webserver
   become: yes
   tasks:
     - name: Install Nginx
