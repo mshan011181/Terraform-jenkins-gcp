@@ -100,7 +100,7 @@ resource "google_compute_instance" "vm_instance" {
          }  
      metadata = {
      # other metadata
-     ssh-keys = "your_user:${file("~/.ssh/cicd_rsa.pub")}"
+     ssh-keys = "shandba90:${file("~/.ssh/cicd_rsa.pub")}"
       }
      metadata_startup_script = <<-EOF
      #!/bin/bash
