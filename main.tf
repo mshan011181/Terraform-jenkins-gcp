@@ -79,8 +79,6 @@ resource "google_compute_address" "static-ip" {
   network_tier = "PREMIUM"
 }
 
-
-
 resource "google_compute_instance" "vm_instance" {
   name         = "test-instance"
   machine_type = "e2-medium"
@@ -99,10 +97,49 @@ resource "google_compute_instance" "vm_instance" {
     access_config {
         nat_ip = google_compute_address.static-ip.address
             }
-         }     
+         }  
+    metadata_startup_script = <<-EOF
+    #!/bin/bash
+    echo "${google_compute_project_metadata_item.ssh-keys.value}" >> /home/shandba90/.ssh/authorized_keys
+    EOF
 }
 
+# Generate SSH key pair
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
 
+# Store the private key in the state file
+resource "google_compute_project_metadata_item" "ssh-private-key" {
+  key   = "ssh-private-key"
+  value = tls_private_key.ssh_key.private_key_pem
+}
+
+# Use the public key for SSH access to the VM
+resource "google_compute_project_metadata_item" "ssh-keys" {
+  key   = "ssh-keys"
+  value = "shandba90:${tls_private_key.ssh_key.public_key_openssh}"
+}
+
+# Ansible provisioner to install packages
+resource "null_resource" "ansible_provisioner" {
+  connection {
+    host        = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
+    type        = "ssh"
+    user        = "shandba90"
+    private_key = tls_private_key.ssh_key.private_key_pem
+  }
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -i '${google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip},' app_install_playbook.yaml"
+  }
+}
+
+# Output the external IP address
+output "instance_ip" {
+  value = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
+}
 
 
 
