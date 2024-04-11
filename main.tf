@@ -110,7 +110,7 @@ data "terraform_remote_state" "ssh_keys" {
   backend = "gcs"
 
   config = {
-    bucket = "your_bucket_name"
+    bucket = "test-bucket-terraform"
     prefix = "terraform/state"
   }
 }
