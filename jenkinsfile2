@@ -52,13 +52,14 @@ pipeline{
                        script {   
                             sh '''
                               export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
-                              terraform apply -auto-approve                              
+                              terraform apply -auto-approve  
+                               terraform output -raw instance_ip > /tmp/ip_addr.txt
                                ''' 
                                // Capture the public IP addresses of the created instances
                              // def instancePublicIPs = sh(script: 'terraform output -json instance_public_ip', returnStdout: true).trim()
-                                  def instancePublicIPs = sh(script: 'terraform output -raw instance_ip')
+                               //   def instancePublicIPs = sh(script: 'terraform output -raw instance_ip')
                               // Set the instance IP addresses as an environment variable
-                               env.TF_VAR_instance_ips = instancePublicIPs
+                              // env.TF_VAR_instance_ips = instancePublicIPs
                              }
                         }
                   }     
@@ -72,8 +73,9 @@ pipeline{
                             }       
                   steps {
                     // Run Ansible playbook to configure the instances
-                   sh '''                         
-                  ansible-playbook -i ${env.TF_VAR_instance_ips} playbook.yml
+                   sh ''' 
+                  ip_address=`cat /tmp/ip_addr.txt`
+                  ansible-playbook -i $ip_address playbook.yml
                    '''
                           }
                      }
