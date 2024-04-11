@@ -105,6 +105,8 @@ resource "google_compute_instance" "vm_instance" {
     EOF
 }
 
+
+
 # Generate SSH key pair
 resource "tls_private_key" "ssh_key" {
   algorithm = "RSA"
@@ -131,6 +133,15 @@ resource "null_resource" "ansible_provisioner" {
     user        = "jenkins"
     private_key = tls_private_key.ssh_key.private_key_pem
   }
+
+
+resource "null_resource" "add_host_key" {
+  provisioner "local-exec" {
+    command = <<-EOT
+      ssh-keyscan -H '${google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip}' >> /bitnami/jenkins/home/.ssh/known_hosts
+    EOT
+  }
+}
 
   provisioner "local-exec" {
     command = "ansible-playbook -i '${google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip}' app_install_playbook.yaml"
