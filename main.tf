@@ -40,15 +40,15 @@ resource "google_compute_firewall" "firewall" {
 
  source_ranges = ["0.0.0.0/0"]
    # Allow ICMP traffic
-     allow {
-     protocol = "icmp"
-     ports    = ["22"]
-      }
-   # Allow TCP traffic on port 22
-     allow {
-     protocol = "tcp"
-     ports    = ["22"]
-     }
+  allow {
+    protocol = "icmp"
+  }
+
+  # Allow TCP traffic on port 22
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }  
 }
 
 resource "google_compute_router" "router" {
