@@ -75,7 +75,7 @@ pipeline{
                     // Run Ansible playbook to configure the instances
                    sh ''' 
                   ip_address=`cat /tmp/ip_addr.txt`
-                  echo $ip_address >> inventory
+                  echo "$ip_address  ansible_ssh_private_key_file=/home/shandba90/.ssh/cicd_rsa"  >>  inventory
                   ansible-playbook -i inventory playbook.yml
                    '''
                           }
