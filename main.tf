@@ -125,12 +125,27 @@ resource "google_compute_project_metadata_item" "ssh-keys" {
 }
 
 
-# Output the external IP address
-output "instance_ip" {
+### Output the external IP address
+output "instance_ips" {
   value = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
 }
 
+###
+data "template_file" "ansible_inventory" {
+  template = <<-EOT
+  [servers]
+  % for ip in instance_ips:
+  ${ip}
+  % endfor
+  EOT
 
+ vars = {
+    instance_ips = join("\n", var.instance_ips)
+  }
+}
+
+
+###
 # Ansible provisioner to install packages
 resource "null_resource" "ansible_provisioner" {
   connection {
@@ -141,7 +156,7 @@ resource "null_resource" "ansible_provisioner" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i inventory app_install_playbook.yaml"
+    command = "ansible-playbook -i ansible_inventory app_install_playbook.yaml"
   }
 }
 
