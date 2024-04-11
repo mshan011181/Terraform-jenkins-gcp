@@ -132,7 +132,7 @@ resource "null_resource" "ansible_provisioner" {
     host        = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
     type        = "ssh"
     user        = "jenkins"
-    private_key = tls_private_key.ssh_key.private_key_pem
+    private_key = tls_private_key.jenkins_ssh_key.private_key_pem
   }
 
 
