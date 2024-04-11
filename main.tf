@@ -100,8 +100,8 @@ resource "google_compute_instance" "vm_instance" {
          }  
     metadata_startup_script = <<-EOF
     #!/bin/bash
-    echo "${google_compute_project_metadata_item.ssh-keys.value}" >> /home/shandba90/.ssh/authorized_keys
-    ##echo "${google_compute_project_metadata_item.ssh-keys.value}" >>  /bitnami/jenkins/home/.ssh/authorized_keys
+    ##echo "${google_compute_project_metadata_item.ssh-keys.value}" >> /home/shandba90/.ssh/authorized_keys
+    echo "${google_compute_project_metadata_item.ssh-keys.value}" >>  /bitnami/jenkins/home/.ssh/authorized_keys
     EOF
 }
 
@@ -120,7 +120,7 @@ resource "google_compute_project_metadata_item" "ssh-private-key" {
 # Use the public key for SSH access to the VM
 resource "google_compute_project_metadata_item" "ssh-keys" {
   key   = "ssh-keys"
-  value = "shandba90:${tls_private_key.ssh_key.public_key_openssh}"
+  value = "jenkins:${tls_private_key.ssh_key.public_key_openssh}"
 }
 
 # Ansible provisioner to install packages
@@ -128,7 +128,7 @@ resource "null_resource" "ansible_provisioner" {
   connection {
     host        = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
     type        = "ssh"
-    user        = "shandba90"
+    user        = "jenkins"
     private_key = tls_private_key.ssh_key.private_key_pem
   }
 
