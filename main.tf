@@ -98,11 +98,18 @@ resource "google_compute_instance" "vm_instance" {
         nat_ip = google_compute_address.static-ip.address
             }
          }  
-    metadata = {
-      # other metadata
-      ssh-keys = "shandba90:${file("~/.ssh/cicd_rsa.pub")}"
-       }
+     metadata_startup_script = <<-EOF
+     #!/bin/bash
+     sudo apt-get update
+     sudo apt-get install -y ansible
+     EOF  
 }
+
+# Output the instances' public IP addresses as a list
+output "instance_public_ips" {
+  value = [for instance in google_compute_instance.vm_instance : instance.network_interface[0].access_config[0].nat_ip]
+}
+
 
 
  
