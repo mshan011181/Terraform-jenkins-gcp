@@ -58,7 +58,10 @@ pipeline{
              stage('Ansible Provision') {
                   steps {
                     // Run Ansible playbook to configure the instances
-                    sh 'ansible-playbook -i ${env.TF_VAR_instance_ips} playbook.yml'
+                   sh ''' 
+                   export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
+                   ansible-playbook -i ${env.TF_VAR_instance_ips} playbook.yml
+                   '''
                           }
                      }
              stage('destroy'){
