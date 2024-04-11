@@ -53,10 +53,15 @@ pipeline{
                           terraform apply -auto-approve
                             ''' 
                              }
-                    }
-      
-
-        stage('destroy'){
+                    }     
+        
+             stage('Ansible Provision') {
+                  steps {
+                    // Run Ansible playbook to configure the instances
+                    sh 'ansible-playbook -i ${env.TF_VAR_instance_ips} playbook.yml'
+                          }
+                     }
+             stage('destroy'){
                            when {
                           expression {
                           return params.TerraformAction == 'Destroy'
@@ -71,12 +76,6 @@ pipeline{
                             '''
                                  }
                        }
-             stage('Ansible Provision') {
-                  steps {
-                    // Run Ansible playbook to configure the instances
-                    sh 'ansible-playbook -i ${env.TF_VAR_instance_ips} playbook.yml'
-                          }
-                     }
         }
 }
 
