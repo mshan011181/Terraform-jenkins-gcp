@@ -98,6 +98,10 @@ resource "google_compute_instance" "vm_instance" {
         nat_ip = google_compute_address.static-ip.address
             }
          }  
+     metadata = {
+     # other metadata
+     ssh-keys = "your_user:${file("~/.ssh/cicd_rsa.pub")}"
+      }
      metadata_startup_script = <<-EOF
      #!/bin/bash
      sudo apt-get update
