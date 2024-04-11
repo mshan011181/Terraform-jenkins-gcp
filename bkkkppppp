@@ -15,3 +15,21 @@ resource "google_compute_project_metadata_item" "ssh-keys" {
   key   = "ssh-keys"
   value = "jenkins:${tls_private_key.ssh_key.public_key_openssh}"
 }
+
+@@@@@@@@@@@@@
+#####################################
+
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Ensure Apache is installed
+      apt:
+        name: apache2
+        state: present
+
+    - name: Ensure Apache service is running
+      service:
+        name: apache2
+        state: started
+        enabled: true
