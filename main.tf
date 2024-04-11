@@ -106,24 +106,25 @@ resource "google_compute_instance" "vm_instance" {
 }
 
 
-
-# Generate SSH key pair
-resource "tls_private_key" "ssh_key" {
+# Generate SSH key pair  for jenkins user
+resource "tls_private_key" "jenkins_ssh_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
-# Store the private key in the state file
+# Store the private key of jenkins user in the state file
 resource "google_compute_project_metadata_item" "ssh-private-key" {
   key   = "ssh-private-key"
-  value = tls_private_key.ssh_key.private_key_pem
+  value = tls_private_key.jenkins_ssh_key.private_key_pem
 }
 
 # Use the public key for SSH access to the VM
 resource "google_compute_project_metadata_item" "ssh-keys" {
   key   = "ssh-keys"
-  value = "jenkins:${tls_private_key.ssh_key.public_key_openssh}"
+  value = "jenkins:${tls_private_key.jenkins_ssh_key.public_key_openssh}"
 }
+
+
 
 # Ansible provisioner to install packages
 resource "null_resource" "ansible_provisioner" {
