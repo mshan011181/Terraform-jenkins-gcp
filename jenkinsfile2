@@ -47,8 +47,8 @@ pipeline{
                           return params.TerraformAction == 'Deploy'
                                }
                              } 
-                  script{  
-                        steps{   
+                   steps {  
+                       script {   
                             sh '''
                               export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
                               terraform apply -auto-approve
