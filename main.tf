@@ -125,6 +125,11 @@ resource "google_compute_project_metadata_item" "ssh-keys" {
 }
 
 
+# Output the external IP address
+output "instance_ip" {
+  value = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
+}
+
 
 # Ansible provisioner to install packages
 resource "null_resource" "ansible_provisioner" {
@@ -135,17 +140,10 @@ resource "null_resource" "ansible_provisioner" {
     private_key = tls_private_key.jenkins_ssh_key.private_key_pem
   }
 
-
   provisioner "local-exec" {
     command = "ansible-playbook -i inventory app_install_playbook.yaml"
   }
 }
 
-# Output the external IP address
-output "instance_ip" {
-  value = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
-}
 
-
-
-  
+ 
