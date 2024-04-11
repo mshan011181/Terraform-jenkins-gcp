@@ -1,5 +1,4 @@
 ---
-host_key_checking = False
 - name: Install and configure Nginx  
   hosts: all
   become: yes
