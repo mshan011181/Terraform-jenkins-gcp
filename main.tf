@@ -109,11 +109,11 @@ resource "google_compute_instance" "vm_instance" {
      EOF  
 }
 
-# Output the instances' public IP addresses as a list
-output "instance_public_ips" {
-  value = [for instance in google_compute_instance.vm_instance : vm_instance.network_interface[0].access_config[0].nat_ip]
-}
 
+# Output the instances' public IP addresses as a list
+output "instance_public_ip" {
+  value = google_compute_instance.vm_instance.network_interface[0].access_config[0].nat_ip
+}
 
 
  
