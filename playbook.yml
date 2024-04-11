@@ -3,7 +3,7 @@
   become: true
   tasks:
     - name: SSH into the host      
-      command: ssh -o StrictHostKeyChecking=no -i /bitnami/jenkins/home/.ssh/cicd_jenkins_rsa  jenkins@{{ inventory_hostname }} 
+      command: ssh  -i /bitnami/jenkins/home/.ssh/cicd_jenkins_rsa  jenkins@{{ inventory_hostname }} 
       
     - name: Ensure Apache is installed
       apt:
