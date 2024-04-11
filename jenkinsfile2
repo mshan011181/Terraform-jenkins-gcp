@@ -53,7 +53,7 @@ pipeline{
                             sh '''
                               export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
                               terraform apply -auto-approve
-                              instance_ip=$(terraform output -raw instance_ip) 
+                              instance_ip=$(terraform output -raw instance_public_ip) 
                                ''' 
                                // Capture the public IP addresses of the created instances
                               def instancePublicIPs = sh(script: 'terraform output -json instance_public_ip', returnStdout: true).trim()
