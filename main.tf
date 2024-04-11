@@ -98,11 +98,10 @@ resource "google_compute_instance" "vm_instance" {
         nat_ip = google_compute_address.static-ip.address
             }
          }  
-    metadata_startup_script = <<-EOF
-    #!/bin/bash
-    ##echo "${google_compute_project_metadata_item.ssh-keys.value}" >> /home/shandba90/.ssh/authorized_keys
-    echo "${google_compute_project_metadata_item.ssh-keys.value}" >  /bitnami/jenkins/home/.ssh/authorized_keys
-    EOF
+    metadata = {
+      # other metadata
+      ssh-keys = "shandba90:${file("~/.ssh/cicd_rsa.pub")}"
+       }
 }
 
 
