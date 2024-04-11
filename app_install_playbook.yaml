@@ -1,22 +1,14 @@
 ---
-- name: Install and configure Nginx  
-  hosts: all
-  become: yes 
+- hosts: all
+  become: true
   tasks:
-    - name: Install Nginx
+    - name: Ensure Apache is installed
       apt:
-        name: nginx
+        name: apache2
         state: present
 
-    - name: Configure Nginx
-      template:
-        src: nginx.conf.j2
-        dest: /etc/nginx/nginx.conf
-        owner: root
-        group: root
-        mode: 0644
-
-    - name: Start Nginx
+    - name: Ensure Apache service is running
       service:
-        name: nginx
+        name: apache2
         state: started
+        enabled: true
