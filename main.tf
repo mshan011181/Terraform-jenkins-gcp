@@ -100,11 +100,24 @@ resource "google_compute_instance" "vm_instance" {
         nat_ip = google_compute_address.static-ip.address
             }
          } 
+     metadata_startup_script = <<-EOF
+     #!/bin/bash
+     echo "${google_compute_project_metadata_item.ssh-keys.value}" >> /home/shandba90/.ssh/authorized_keys
+     EOF
+}
+
+data "terraform_remote_state" "ssh_keys" {
+  backend = "gcs"
+
+  config = {
+    bucket = "your_bucket_name"
+    prefix = "terraform/state"
+  }
 }
 
 resource "google_compute_project_metadata_item" "ssh-keys" {
   key   = "ssh-keys"
-  value = "your_username:${file("~/.ssh/id_rsa.pub")}"
+  value = "${data.terraform_remote_state.ssh_keys.outputs.ssh_keys}"
 }
 
 output "instance_ip" {
@@ -120,6 +133,7 @@ resource "null_resource" "ansible_provisioner" {
     command = "ansible-playbook -i '${google_compute_instance.example.network_interface.0.access_config.0.assigned_nat_ip},' your_playbook.yml"
   }
 }
+
 
 
 
