@@ -73,6 +73,9 @@ pipeline{
                     // Run Ansible playbook to configure the instances
                    sh '''        
                    instance_ip=$(terraform output -raw instance_ip)
+                   echo ${instance_ip}
+                   echo ${instance_ip}
+                   echo ${instance_ip}  
                    ansible-playbook -i ${instance_ip} playbook.yml
                    '''
                           }
