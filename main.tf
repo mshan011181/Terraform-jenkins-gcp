@@ -130,7 +130,7 @@ resource "null_resource" "ansible_provisioner" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${google_compute_instance.example.network_interface.0.access_config.0.assigned_nat_ip},' your_playbook.yml"
+    command = "ansible-playbook -i '${google_compute_instance.example.network_interface.0.access_config.0.assigned_nat_ip},' app_install_playbook.yaml"
   }
 }
 
