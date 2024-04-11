@@ -135,14 +135,6 @@ resource "null_resource" "ansible_provisioner" {
   }
 
 
-resource "null_resource" "add_host_key" {
-  provisioner "local-exec" {
-    command = <<-EOT
-      ssh-keyscan -H '${google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip}' >> /bitnami/jenkins/home/.ssh/known_hosts
-    EOT
-  }
-}
-
   provisioner "local-exec" {
     command = "ansible-playbook -i '${google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip}' app_install_playbook.yaml"
   }
