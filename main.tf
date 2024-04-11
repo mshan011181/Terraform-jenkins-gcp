@@ -102,6 +102,24 @@ resource "google_compute_instance" "vm_instance" {
          } 
 }
 
+resource "google_compute_project_metadata_item" "ssh-keys" {
+  key   = "ssh-keys"
+  value = "your_username:${file("~/.ssh/id_rsa.pub")}"
+}
+
+output "instance_ip" {
+  value = google_compute_instance.example.network_interface.0.access_config.0.assigned_nat_ip
+}
+
+resource "null_resource" "ansible_provisioner" {
+  triggers = {
+    instance_ip = google_compute_instance.example.network_interface.0.access_config.0.assigned_nat_ip
+  }
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -i '${google_compute_instance.example.network_interface.0.access_config.0.assigned_nat_ip},' your_playbook.yml"
+  }
+}
 
 
 
