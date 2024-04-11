@@ -126,7 +126,7 @@ resource "google_compute_project_metadata_item" "ssh-keys" {
 
 
 ### Output the external IP address
-output "instance_ips" {
+output "instance_ip" {
   value = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
 }
 
@@ -134,13 +134,13 @@ output "instance_ips" {
 data "template_file" "ansible_inventory" {
   template = <<-EOT
   [servers]
-  % for ip in instance_ips:
+  % for ip in instance_ip:
   ${ip}
   % endfor
   EOT
 
  vars = {
-    instance_ips = join("\n", var.instance_ips)
+    instance_ip = join("\n", var.instance_ip)
   }
 }
 
