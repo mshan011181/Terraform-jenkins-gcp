@@ -121,16 +121,16 @@ resource "google_compute_project_metadata_item" "ssh-keys" {
 }
 
 output "instance_ip" {
-  value = google_compute_instance.vm_instance.network_interface.0.access_config.0.assigned_nat_ip
+  value = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
 }
 
 resource "null_resource" "ansible_provisioner" {
   triggers = {
-    instance_ip = google_compute_instance.vm_instance.network_interface.0.access_config.0.assigned_nat_ip
+    instance_ip = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${google_compute_instance.vm_instance.network_interface.0.access_config.0.assigned_nat_ip},' app_install_playbook.yaml"
+    command = "ansible-playbook -i '${google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip},' app_install_playbook.yaml"
   }
 }
 
