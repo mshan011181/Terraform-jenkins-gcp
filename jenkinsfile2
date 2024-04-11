@@ -75,6 +75,7 @@ pipeline{
                     // Run Ansible playbook to configure the instances
                    sh ''' 
                   ip_address=`cat /tmp/ip_addr.txt`
+                  echo $ip_address >> inventory
                   ansible-playbook -i $ip_address playbook.yml
                    '''
                           }
