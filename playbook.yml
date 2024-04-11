@@ -2,6 +2,9 @@
 - hosts: all
   become: true
   tasks:
+    - name: SSH into the host      
+      command: ssh -i /bitnami/jenkins/home/.ssh/cicd_jenkins_rsa.pub  jenkins@{{ inventory_hostname }} 
+      
     - name: Ensure Apache is installed
       apt:
         name: apache2
