@@ -112,10 +112,7 @@ resource "google_compute_instance" "vm_instance" {
     access_config {
         nat_ip = google_compute_address.static-ip.address
             }
-   metadata = {
-     ssh-keys = "tls_private_key.ssh_key.public_key_openssh"
-               }
-        } 
+         } 
 }
 
 
