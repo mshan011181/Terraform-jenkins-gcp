@@ -38,17 +38,18 @@ resource "google_compute_firewall" "firewall" {
   name    = "firewall"
   network = google_compute_network.vpc_network.self_link 
 
-  allow {
-    protocol = "icmp"
-  }
-
  source_ranges = ["0.0.0.0/0"]
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
+   # Allow ICMP traffic
+     allow {
+     protocol = "icmp"
+     ports    = ["22"]
+      }
+   # Allow TCP traffic on port 22
+     allow {
+     protocol = "tcp"
+     ports    = ["22"]
+     }
 }
-
 
 resource "google_compute_router" "router" {
   name    = "quickstart-router"
