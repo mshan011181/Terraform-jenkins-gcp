@@ -62,10 +62,15 @@ pipeline{
                   }     
         
              stage('Ansible Provision') {
+                when {
+                          expression {
+                         // return params.TerraformAction == 'Deploy'
+                         return params.TerraformAction == 'Deploy'
+                                     }    
+                            }       
                   steps {
                     // Run Ansible playbook to configure the instances
-                   sh ''' 
-                   export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
+                   sh '''                    
                    ansible-playbook -i ${env.TF_VAR_instance_ips} playbook.yml
                    '''
                           }
