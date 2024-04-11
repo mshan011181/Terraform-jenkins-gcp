@@ -54,7 +54,7 @@ pipeline{
                               terraform apply -auto-approve
                                ''' 
                                // Capture the public IP addresses of the created instances
-                              def instancePublicIPs = sh(script: 'terraform output -json instance_public_ips', returnStdout: true).trim()
+                              def instancePublicIPs = sh(script: 'terraform output -json instance_public_ip', returnStdout: true).trim()
                               // Set the instance IP addresses as an environment variable
                                env.TF_VAR_instance_ips = instancePublicIPs
                              }
