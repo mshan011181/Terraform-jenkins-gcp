@@ -100,8 +100,8 @@ resource "google_compute_instance" "vm_instance" {
          }  
     metadata_startup_script = <<-EOF
     #!/bin/bash
-    ##echo "${google_compute_project_metadata_item.ssh-keys.value}" >> /home/shandba90/.ssh/authorized_keys
-    echo "${google_compute_project_metadata_item.ssh-keys.value}" >>  /bitnami/jenkins/home/.ssh/authorized_keys
+    echo "${google_compute_project_metadata_item.ssh-keys.value}" >> /home/shandba90/.ssh/authorized_keys
+    ##echo "${google_compute_project_metadata_item.ssh-keys.value}" >>  /bitnami/jenkins/home/.ssh/authorized_keys
     EOF
 }
 
