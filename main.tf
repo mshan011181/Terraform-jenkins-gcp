@@ -124,9 +124,17 @@ resource "google_compute_project_metadata_item" "ssh-keys" {
   value = "jenkins:${tls_private_key.jenkins_ssh_key.public_key_openssh}"
 }
 
+#########
+variable "instance_ips" {
+  type    = list(string)
+  # Optionally add description and default value
+  # description = "List of IP addresses of instances"
+  # default     = []
+}
+
 
 ### Output the external IP address
-output "instance_ip" {
+output "instance_ips" {
   value = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
 }
 
@@ -134,16 +142,15 @@ output "instance_ip" {
 data "template_file" "ansible_inventory" {
   template = <<-EOT
   [servers]
-  % for ip in instance_ip:
+  % for ip in var.instance_ips:
   ${ip}
   % endfor
   EOT
 
- vars = {
-    instance_ip = join("\n", var.instance_ip)
+  vars = {
+    instance_ips = join("\n", var.instance_ips)
   }
 }
-
 
 ###
 # Ansible provisioner to install packages
