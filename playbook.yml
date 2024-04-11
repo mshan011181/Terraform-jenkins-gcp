@@ -1,12 +1,7 @@
 ---
 - hosts: all
-  vars:
-    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
-    
-  tasks:
-    - name: SSH into the host      
-      command: ssh  -i /bitnami/jenkins/home/.ssh/cicd_jenkins_rsa  jenkins@{{ inventory_hostname }} 
-      
+  become: true    
+  tasks:  
     - name: Ensure Apache is installed
       apt:
         name: apache2
