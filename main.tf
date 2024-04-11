@@ -116,7 +116,7 @@ data "terraform_remote_state" "ssh_keys" {
 }
 
 resource "google_compute_project_metadata_item" "ssh-keys" {
-  project = "${google_project_services.myproject.project}"
+  project = local.project_id
   key   = "ssh-keys"
   value = "${data.terraform_remote_state.ssh_keys.outputs.ssh_keys}"
 }
