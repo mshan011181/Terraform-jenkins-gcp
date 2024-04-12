@@ -78,6 +78,30 @@ resource "google_compute_address" "static-ip" {
   network_tier = "PREMIUM"
 }
 
+
+resource "tls_private_key" "example" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "local_file" "private_key_output" {
+  sensitive_content = tls_private_key.example.private_key_pem
+  filename          = "/bitnami/jenkins/home/workspace/create_infra_VM_using_terraform_jenkins2/private_key.pem"
+}
+
+output "public_key" {
+  value     = tls_private_key.example.public_key_openssh
+  sensitive = true
+}
+
+output "private_key" {
+  value     = tls_private_key.example.private_key_pem
+  sensitive = true
+}
+
+
+
+
 resource "google_compute_instance" "vm_instance" {
   name         = "test-instance"
   machine_type = "e2-medium"
@@ -96,16 +120,7 @@ resource "google_compute_instance" "vm_instance" {
     access_config {
         nat_ip = google_compute_address.static-ip.address
             }
-         }  
-     metadata = {
-     # other metadata
-     ssh-keys = "jenkins:${file("~/.ssh/cicd_jenkins_rsa.pub")}"
-      }
-     metadata_startup_script = <<-EOF
-     #!/bin/bash
-     sudo apt-get update
-     sudo apt-get install -y ansible
-     EOF  
+         }       
 }
 
 
