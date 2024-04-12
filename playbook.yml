@@ -1,6 +1,6 @@
 ---
 - name: Configure VM
-  hosts: your_vm_hostname_or_group
+  hosts: webserver
   become: true
   vars:
     ansible_ssh_private_key_file: /path/to/private_key.pem  
