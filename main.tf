@@ -120,16 +120,7 @@ resource "google_compute_instance" "vm_instance" {
     access_config {
         nat_ip = google_compute_address.static-ip.address
             }
-         }  
-     metadata = {
-     # other metadata
-     ssh-keys = "jenkins:${file("~/.ssh/cicd_jenkins_rsa.pub")}"
-      }
-     metadata_startup_script = <<-EOF
-     #!/bin/bash
-     sudo apt-get update
-     sudo apt-get install -y ansible
-     EOF  
+         }       
 }
 
 
