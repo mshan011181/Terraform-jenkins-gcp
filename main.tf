@@ -86,7 +86,7 @@ resource "tls_private_key" "example" {
 
 resource "local_file" "private_key_output" {
   sensitive_content = tls_private_key.example.private_key_pem
-  filename          = "/bitnami/jenkins/home/workspace/create_infra_VM_using_terraform_jenkins/private_key.pem"
+  filename          = "/bitnami/jenkins/home/workspace/create_infra_VM_using_terraform_jenkins2/private_key.pem"
 }
 
 output "public_key" {
