@@ -123,7 +123,8 @@ resource "google_compute_instance" "vm_instance" {
          }     
     metadata = {
      # other metadata
-     ssh-keys = "jenkins:${file("/bitnami/jenkins/home/.ssh/id_rsa.pub")}"
+     ##ssh-keys = "jenkins:${file("/bitnami/jenkins/home/.ssh/id_rsa.pub")}"
+     ssh-keys = "shandba90:${file("/home/shandba90/.ssh/id_rsa.pub")}"
       }
      metadata_startup_script = <<-EOF
      #!/bin/bash
