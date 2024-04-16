@@ -1,7 +1,7 @@
 ---
 - name: Configure VM
   hosts: webserver
-  become: true
+  become: yes
   tasks:  
     - name: Ensure Apache is installed
       apt:
