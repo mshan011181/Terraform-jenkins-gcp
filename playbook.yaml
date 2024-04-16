@@ -2,8 +2,6 @@
 - name: Configure VM
   hosts: webserver
   become: true
-  vars:
-    ansible_ssh_private_key_file: /bitnami/jenkins/home/workspace/create_infra_VM_using_terraform_jenkins2/private_key.pem  
   tasks:  
     - name: Ensure Apache is installed
       apt:
