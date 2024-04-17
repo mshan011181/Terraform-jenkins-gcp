@@ -80,7 +80,8 @@ pipeline{
                   // Run Ansible playbook to configure the instances
                   sh ''' 
                   ###ip_address=`cat /tmp/ip_addr.txt`
-                  ###echo $ip_address  >>  inventory                  
+                  ###echo $ip_address  >>  inventory 
+                  export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
                   export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
                   ansible-playbook -i inventory playbook.yaml 
                    '''
