@@ -79,7 +79,7 @@ pipeline{
                   sh ''' 
                   ip_address=`cat /tmp/ip_addr.txt`
                   echo $ip_address  >>  inventory
-                  ##export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
+                  export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
                   ansible-playbook -i inventory playbook.yaml 
                    '''
                             }
