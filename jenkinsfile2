@@ -8,7 +8,7 @@ pipeline{
           GCP_SERVICE_ACCOUNT = credentials('gce-secret-key') 
           TF_VAR_instance_ips = ''
                    }
-    stages{
+    stages{           
            stage('Git checkout'){
               steps{
               git credentialsId: 'jenkins-personal-access-token', url: 'https://github.com/mshan011181/Terraform-jenkins-gcp.git'
@@ -74,6 +74,7 @@ pipeline{
                                      }    
                             }       
                 steps {
+                         git credentialsId: 'jenkins-personal-access-token', url: 'https://github.com/mshan011181/Terraform-jenkins-gcp.git'
                      script {
                             // Define the extra variables including ansible_ssh_common_args
                              // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
