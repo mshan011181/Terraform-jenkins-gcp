@@ -86,6 +86,7 @@ pipeline{
                     terraform output -raw instance_public_ip > /tmp/ip_addr.txt
                   ip_address=`cat /tmp/ip_addr.txt`
                   echo $ip_address  >>  inventory 
+                  sudo rm /var/lib/dpkg/lock-frontend  
                   export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
                   ansible-playbook -i inventory playbook.yaml 
                    '''
