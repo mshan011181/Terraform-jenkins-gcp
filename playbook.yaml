@@ -7,6 +7,10 @@
       apt:
         name: apache2
         state: present
+        update_cache: yes
+        install_recommends: no
+        force_apt_get: yes
+        dpkg_options: "force-confdef,force-confold"  
 
     - name: Ensure Apache service is running
       service:
