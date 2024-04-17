@@ -3,13 +3,16 @@
   hosts: webserver
   become: yes
   tasks:  
+    - name: Wait for /var/lib/dpkg/lock-frontend to be released 
+      shell: while lsof /var/lib/dpkg/lock-frontend ; do sleep 10; done;
+       
     - name: Ensure Apache is installed
       apt:
-        name: apache2
-        state: present       
-
+      name: apache2
+      state: present       
+        
     - name: Ensure Apache service is running
       service:
-        name: apache2
-        state: started
-        enabled: true
+      name: apache2
+      state: started
+      enabled: true
