@@ -1,7 +1,7 @@
 pipeline{
     agent any
           parameters {
-          choice(name: 'TerraformAction', choices: 'Deploy\nDestroy\nProvision', description: 'Select the action to perform')
+          choice(name: 'TerraformAction', choices: 'Deploy\nDestroy', description: 'Select the action to perform')
                    }
           environment {
           CLOUDSDK_CORE_PROJECT='devops-project-1-419603'    
@@ -69,8 +69,8 @@ pipeline{
              stage('Ansible Provision') {
                 when {
                           expression {
-                         // return params.TerraformAction == 'Provision'
-                         return params.TerraformAction == 'Provision'
+                         // return params.TerraformAction == 'Deploy'
+                         return params.TerraformAction == 'Deploy'
                                      }    
                             }       
                 steps {
