@@ -80,9 +80,6 @@ pipeline{
                              // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
                   // Run Ansible playbook to configure the instances
                   sh '''
-                  export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
-                  terraform init -reconfigure
-                  terraform plan 
                   ip_address=`cat /tmp/ip_addr.txt`
                   echo $ip_address  >>  inventory 
                   export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
