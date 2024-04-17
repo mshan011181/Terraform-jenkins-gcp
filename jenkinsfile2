@@ -54,6 +54,8 @@ pipeline{
                               export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
                               terraform apply -auto-approve  
                                terraform output -raw instance_public_ip > /tmp/ip_addr.txt
+                                  ip_address=`cat /tmp/ip_addr.txt`
+                                  echo $ip_address  >>  inventory
                                ''' 
                                // Capture the public IP addresses of the created instances
                              // def instancePublicIPs = sh(script: 'terraform output -json instance_public_ip', returnStdout: true).trim()
@@ -77,8 +79,8 @@ pipeline{
                              // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
                   // Run Ansible playbook to configure the instances
                   sh ''' 
-                  ip_address=`cat /tmp/ip_addr.txt`
-                  echo $ip_address  >>  inventory                  
+                  ###ip_address=`cat /tmp/ip_addr.txt`
+                  ###echo $ip_address  >>  inventory                  
                   export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
                   ansible-playbook -i inventory playbook.yaml 
                    '''
