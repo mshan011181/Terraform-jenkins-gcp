@@ -79,10 +79,12 @@ pipeline{
                             // Define the extra variables including ansible_ssh_common_args
                              // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
                   // Run Ansible playbook to configure the instances
-                  sh ''' 
+                  sh '''
+                  export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
+                  terraform init -reconfigure
+                  terraform plan 
                   ip_address=`cat /tmp/ip_addr.txt`
                   echo $ip_address  >>  inventory 
-                  export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
                   export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
                   ansible-playbook -i inventory playbook.yaml 
                    '''
