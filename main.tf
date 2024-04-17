@@ -124,14 +124,8 @@ resource "google_compute_instance" "vm_instance" {
     metadata = {
      # other metadata
      ssh-keys = "jenkins:${file("/bitnami/jenkins/home/.ssh/id_rsa.pub")}"
-      }
-     metadata_startup_script = <<-EOF
-     #!/bin/bash
-     sudo apt-get update
-     sudo apt-get install -y ansible
-     EOF  
+      }     
 }
-
 
 # Output the instances' public IP addresses as a list
 output "instance_public_ip" {
