@@ -80,14 +80,34 @@ pipeline{
                              // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
                   // Run Ansible playbook to configure the instances
                   sh '''
-                    export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json 
-                    terraform plan
-                    terraform apply -auto-approve  
-                    terraform output -raw instance_public_ip > /tmp/ip_addr.txt
+                    export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json                                       
                   ip_address=`cat /tmp/ip_addr.txt`
                   echo $ip_address  >>  inventory                    
                   export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
                   ansible-playbook -i inventory playbook.yaml 
+                   '''
+                            }
+                     }
+              }
+             stage('Ansible Provisioner - Install Docker') {
+                when {
+                          expression {
+                         // return params.TerraformAction == 'Deploy'
+                         return params.TerraformAction == 'Deploy'
+                                     }    
+                            }       
+                steps {
+                         git credentialsId: 'jenkins-personal-access-token', url: 'https://github.com/mshan011181/Terraform-jenkins-gcp.git'
+                     script {
+                            // Define the extra variables including ansible_ssh_common_args
+                             // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
+                  // Run Ansible playbook to configure the instances
+                  sh '''
+                    export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json                                       
+                  ip_address=`cat /tmp/ip_addr.txt`
+                  echo $ip_address  >>  inventory                    
+                  export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
+                  ansible-playbook -i inventory doker_install_playbook.yaml 
                    '''
                             }
                      }
