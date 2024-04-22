@@ -11,3 +11,5 @@
     - name: Upgrade all packages
       apt:
         upgrade: dist
+
+    # Add more tasks as needed for specific packages or operations
