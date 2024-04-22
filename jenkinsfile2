@@ -92,7 +92,7 @@ pipeline{
                             }
                      }
               }
-             stage('VM_destroy'){
+             stage('VM -destroy'){
                            when {
                           expression {
                           return params.TerraformAction == 'Destroy'
