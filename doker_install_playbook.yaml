@@ -1,4 +1,4 @@
-- hosts: "debian"
+- hosts: webserver
   name: Installing Docker
   tasks:
     - name: Check if Docker is installed
