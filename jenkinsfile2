@@ -81,6 +81,8 @@ pipeline{
                   // Run Ansible playbook to configure the instances
                   sh '''
                     export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json   
+                    terraform plan
+                   terraform apply -auto-approve  
                   terraform output -raw instance_public_ip > /tmp/ip_addr.txt   
                   ip_address=`cat /tmp/ip_addr.txt`
                   echo $ip_address  >>  inventory                    
