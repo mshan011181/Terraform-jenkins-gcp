@@ -1,0 +1,13 @@
+---
+- name: Update apt packages
+  hosts: webserver
+  become: yes  # This is required to execute commands with sudo privileges
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
