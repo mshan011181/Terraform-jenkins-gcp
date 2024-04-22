@@ -42,7 +42,7 @@ pipeline{
                           ''' 
                              }
                     }
-        stage('Apply'){
+        stage('VM creation - with N/w and firewall'){
                           when {
                           expression {
                           return params.TerraformAction == 'Deploy'
@@ -92,7 +92,7 @@ pipeline{
                             }
                      }
               }
-             stage('destroy'){
+             stage('VM_destroy'){
                            when {
                           expression {
                           return params.TerraformAction == 'Destroy'
