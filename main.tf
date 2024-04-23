@@ -110,7 +110,7 @@ resource "google_compute_instance" "vm_instance" {
  boot_disk {
     initialize_params {
       image = "debian-12-bookworm-v20240312"
-      size = 30
+      size = 50
       }
      }
  
