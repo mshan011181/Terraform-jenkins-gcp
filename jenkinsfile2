@@ -137,7 +137,7 @@ pipeline{
                   sh '''
                       export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json 
                       gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
-                      docker pull us-central1-docker.pkg.dev${PROJECT_ID}/${REPOSITORY_NAME}/${IMAGE_NAME}:${IMAGE_TAG}
+                      sudo docker pull us-central1-docker.pkg.dev${PROJECT_ID}/${REPOSITORY_NAME}/${IMAGE_NAME}:${IMAGE_TAG}
                    '''
                             }
                      }
