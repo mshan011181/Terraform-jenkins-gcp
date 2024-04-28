@@ -125,6 +125,7 @@ resource "google_compute_instance" "vm_instance" {
     metadata = {
      # other metadata
      ssh-keys = "jenkins:${file("/bitnami/jenkins/home/.ssh/id_rsa.pub")}"
+     json_key = "base64encode(file("/path/to/gcp_sa_key.json"))"
       }     
 }
 
