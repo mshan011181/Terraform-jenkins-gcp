@@ -27,7 +27,7 @@
         state: present
 
      - name: Run Docker container
-      docker_container:
+       docker_container:
         name: my_container
         image: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
         state: started
