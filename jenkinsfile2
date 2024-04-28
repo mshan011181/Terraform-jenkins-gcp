@@ -5,7 +5,7 @@ pipeline{
                    }
           environment {
           CLOUDSDK_CORE_PROJECT='devops-project-1-419603'    
-          GCP_SERVICE_ACCOUNT = credentials('gce-secret-key')              
+          GCP_SERVICE_ACCOUNT = credentials('gce-secret-key') 
           TF_VAR_instance_ips = ''                 
                    // Define the name of your Docker image
                    IMAGE_NAME = 'oracle/database'
@@ -121,7 +121,28 @@ pipeline{
                             }
                      }
               }
-      
+       stage('Pull Docker Image') {
+                when {
+                          expression {
+                         // return params.TerraformAction == 'Deploy'
+                         return params.TerraformAction == 'Deploy'
+                                     }    
+                            }       
+                steps {
+                         git credentialsId: 'jenkins-personal-access-token', url: 'https://github.com/mshan011181/Terraform-jenkins-gcp.git'
+                     script {
+                            // Define the extra variables including ansible_ssh_common_args
+                             // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
+                  // Run Ansible playbook to configure the instances
+                  sh '''
+                      export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json 
+                      gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
+                      sudo docker pull us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
+                   '''
+                            }
+                     }
+              }
+
        stage('VM -destroy'){
                            when {
                           expression {
