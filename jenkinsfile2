@@ -6,6 +6,7 @@ pipeline{
           environment {
           CLOUDSDK_CORE_PROJECT='devops-project-1-419603'    
           GCP_SERVICE_ACCOUNT = credentials('gce-secret-key') 
+          GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json   
           TF_VAR_instance_ips = ''                 
                    // Define the name of your Docker image
                    IMAGE_NAME = 'oracle/database'
