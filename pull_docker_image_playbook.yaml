@@ -11,5 +11,5 @@
 
     - name: Pull Docker image
       docker_image:
-        name: gcr.io/{{ project_id }}/{{ image_name }}:{{ image_tag }}
+        name: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
         state: present
