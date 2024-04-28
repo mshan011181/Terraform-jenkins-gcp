@@ -1,6 +1,6 @@
 ---
 - name: Pull Docker image from GCR and run container
-  hosts: your_vm
+  hosts: webserver
   become: yes
   tasks:
     - name: Install Docker
