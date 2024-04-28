@@ -30,7 +30,7 @@ pipeline{
                             }                                      
                      steps{ 
                          sh '''
-                         export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
+                         ##export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
                          terraform init -reconfigure                                  
                          '''
                             }
@@ -44,7 +44,7 @@ pipeline{
                           } 
                           steps{ 
                           sh '''
-                          export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json 
+                          ##export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json 
                           terraform plan
                           ''' 
                              }
@@ -58,7 +58,7 @@ pipeline{
                    steps {  
                        script {   
                             sh '''
-                              export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
+                              ##export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
                               terraform apply -auto-approve  
                                terraform output -raw instance_public_ip > /tmp/ip_addr.txt
                                  ## ip_address=`cat /tmp/ip_addr.txt`
@@ -87,7 +87,7 @@ pipeline{
                              // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
                   // Run Ansible playbook to configure the instances
                   sh '''
-                    export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json   
+                    ##export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json   
                     terraform plan
                    terraform apply -auto-approve  
                   terraform output -raw instance_public_ip > /tmp/ip_addr.txt   
@@ -113,7 +113,7 @@ pipeline{
                              // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
                   // Run Ansible playbook to configure the instances
                   sh '''
-                    export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json                                       
+                    ##export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json                                       
                   ip_address=`cat /tmp/ip_addr.txt`
                   echo $ip_address  >>  inventory                    
                   export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
