@@ -9,10 +9,6 @@
         state: present
       become: yes
 
-    - name: Authenticate with Google Cloud
-      command: gcloud auth activate-service-account --key-file=/path/to/keyfile.json
-      become: yes
-
     - name: Pull Docker image
       docker_image:
         name: gcr.io/{{ project_id }}/{{ image_name }}:{{ image_tag }}
