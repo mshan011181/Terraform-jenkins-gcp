@@ -8,11 +8,7 @@
         name: docker.io
         state: present
       become: yes
-
-    - name: Authenticate with Google Cloud
-      command: gcloud auth activate-service-account --key-file=/home/shandba90/jenkins-gce.json
-      become: yes
-
+      
     - name: Pull Docker image
       docker_image:
         name: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
