@@ -7,14 +7,7 @@
       apt:
         name: docker.io
         state: present
-      become: yes
-      
-      - name: Authenticate with Docker
-      command: >
-        docker login us-central1-docker.pkg.dev
-        -u _json_key
-        -p "{{ lookup('file', '/home/shandba90/jenkins-gce.json') }}"
-      become: yes
+      become: yes     
       
     - name: Pull Docker image
       docker_image:
