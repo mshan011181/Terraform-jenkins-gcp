@@ -122,7 +122,7 @@ pipeline{
                      }
               }
        stage('Pull Docker Image') {
-                when {
+                 when {
                           expression {
                          // return params.TerraformAction == 'Deploy'
                          return params.TerraformAction == 'Deploy'
@@ -135,9 +135,11 @@ pipeline{
                              // def extraVars = "-e 'ansible_ssh_common_args=\"-o StrictHostKeyChecking=no\"'"         
                   // Run Ansible playbook to configure the instances
                   sh '''
-                      export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json 
-                      gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
-                      sudo docker pull us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
+                    export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json                                       
+                  ip_address=`cat /tmp/ip_addr.txt`
+                  echo $ip_address  >>  inventory                    
+                  export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
+                  ansible-playbook -i inventory pull_docker_image_playbook.yaml 
                    '''
                             }
                      }
