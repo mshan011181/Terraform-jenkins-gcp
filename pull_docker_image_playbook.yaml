@@ -1,0 +1,19 @@
+---
+- name: Pull Docker image from GCR and run container
+  hosts: your_vm
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+      become: yes
+
+    - name: Authenticate with Google Cloud
+      command: gcloud auth activate-service-account --key-file=/path/to/keyfile.json
+      become: yes
+
+    - name: Pull Docker image
+      docker_image:
+        name: gcr.io/{{ project_id }}/{{ image_name }}:{{ image_tag }}
+        state: present
