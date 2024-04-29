@@ -54,8 +54,7 @@
           -- Additional SQL commands if needed
           exit;
     EOF          
-          '
-       
+          '       
       register: sql_output
  
     - debug:
