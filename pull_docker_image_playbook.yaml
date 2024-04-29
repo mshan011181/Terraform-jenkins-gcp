@@ -53,10 +53,9 @@
           select name from v\$database;
           -- Additional SQL commands if needed
           exit;
-    EOF          
-          '       
-      register: sql_output
- 
-    - debug:
-        var: sql_output
+   EOF
+      '
+  register: sql_output
 
+- debug:
+    var: sql_output
