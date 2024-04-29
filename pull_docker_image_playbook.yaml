@@ -39,9 +39,8 @@
         command: >
           /bin/bash -c '
           source /opt/oracle/.bashrc;
-          sqlplus / as sysdba <<EOF
-          exit;
-          EOF'
+          ls -ltr /tmp
+          '
        
       register: sql_output
  
