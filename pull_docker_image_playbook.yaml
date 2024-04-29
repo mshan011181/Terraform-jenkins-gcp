@@ -16,4 +16,4 @@
       select sysdate from dual;
       select name from v\$database;                   
 EOF'
-    register: sql_output
+  
