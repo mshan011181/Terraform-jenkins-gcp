@@ -42,12 +42,13 @@
           export ORACLE_SID=ORCLCDB &&
           export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1 &&
           export PATH=$ORACLE_HOME/bin:$PATH &&
-          sqlplus -s sys/Shan9871 as sysdba <<EOF
+          SQLPLUS_OUTPUT=`sqlplus -s sys/Shan9871 as sysdba <<EOF
           set echo on;
           select * from v\$database;
           select sysdate from dual;
+          EOF`  &&
+          echo $SQLPLUS_OUTPUT
           exit;
-          EOF
           '
       register: sql_output
 
