@@ -32,12 +32,19 @@
         image: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
         state: started
         
-    - name: Execute SQL command inside the container
-      community.docker.docker_container_exec:
-       container: my_container  # Specify the name of your Docker container
-       command: >
-        sqlplus /as sysdba <<EOF
-        set heading off;
-        select name from v$database;
-        exit;
-        EOF'
+
+    - name: Connect to Oracle database in Docker container
+      gather_facts: false
+       tasks:
+        - name: Execute SQL command inside the container
+          community.docker.docker_container_exec:
+           container: my_container  # Replace with your container name
+           command: >
+            /bin/bash -c '
+            source /opt/oracle/.bashrc;  # Assuming .bashrc sets up Oracle environment
+            sqlplus -S / as sysdba <<EOF
+            set heading off;
+            select name from v\$database;
+            exit;
+            EOF
+            '
