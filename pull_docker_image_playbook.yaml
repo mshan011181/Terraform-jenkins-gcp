@@ -33,7 +33,8 @@
         image: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
         state: started        
         
-     - community.docker.docker_container_exec:
+    - name: Execute SQL command inside the container
+      community.docker.docker_container_exec:
         container: my_container
         command: ls
       register: out
