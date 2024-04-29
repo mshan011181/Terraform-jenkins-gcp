@@ -36,8 +36,7 @@
       community.docker.docker_container_exec:
        container: my_container  # Specify the name of your Docker container
        command: >
-        /bin/bash -c 'source /home/oracle/.bashrc; 
-        sqlplus / as sysdba <<EOF
+        sqlplus /as sysdba <<EOF
         set heading off;
         select name from v$database;
         exit;
