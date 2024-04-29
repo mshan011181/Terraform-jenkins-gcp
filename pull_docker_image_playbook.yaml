@@ -40,8 +40,6 @@
           /bin/bash -c '
           source /opt/oracle/.bashrc;
           sqlplus / as sysdba <<EOF
-          set heading off;
-          select name from v\$database;
           exit;
           EOF'
        
