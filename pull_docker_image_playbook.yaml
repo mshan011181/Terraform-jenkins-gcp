@@ -35,29 +35,16 @@
 
     - name: Copy code to VM
       ansible.builtin.copy:
-        src: /path/to/local/code
-        dest: /path/on/remote/VM
+        src: /home/shandba90/test.sh
+        dest: /home/shandba90
       delegate_to: localhost
+
+    - name: Execute script using docker exec
+      command: docker exec my_container /home/shandba90/test.sh 
+      register: script_output
+      
+    - debug:
+        var: script_output.stdout
     
 
-    - name: Run SQL commands inside CONTAINER 
-      community.docker.docker_container_exec:
-        container: my_container
-        command: >
-          /bin/bash -c '
-          source /home/oracle/.bashrc &&
-          export ORACLE_SID=ORCLCDB &&
-          export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1 &&
-          export PATH=$ORACLE_HOME/bin:$PATH &&
-          SQLPLUS_OUTPUT=`sqlplus -s sys/Shan9871 as sysdba <<EOF
-          set echo on;
-          select * from v\$database;
-          select sysdate from dual;
-          EOF`  &&
-          echo $SQLPLUS_OUTPUT &&
-          exit;
-          '
-      register: sql_output
-
-    - debug:
-        var: sql_output
+    
