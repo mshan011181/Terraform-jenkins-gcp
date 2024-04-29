@@ -1,6 +1,7 @@
 ---
 - name: Pull Docker image from GCR and run container
   hosts: webserver
+  gather_facts: false
   become: yes
   tasks:
     - name: Install Docker
