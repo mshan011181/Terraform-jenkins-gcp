@@ -127,8 +127,7 @@ resource "google_compute_instance" "vm_instance" {
      ssh-keys = "jenkins:${file("/bitnami/jenkins/home/.ssh/id_rsa.pub")}"
      json_key = base64encode(file("/home/shandba90/jenkins-gce.json"))
      } 
-   metadata_startup_script = file("/home/shandba90/test.sh")
-}
+   }
 
 # Output the instances' public IP addresses as a list
 output "instance_public_ip" {
