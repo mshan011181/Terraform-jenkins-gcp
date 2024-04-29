@@ -39,7 +39,11 @@
         command: >
           /bin/bash -c '
           source /home/oracle/.bashrc;
-          ls -ltr /tmp
+          ls -ltr /tmp  
+          sqlplus -s /nolog <<EOF
+          connect / as sysdba          
+          exit
+          EOF
           '
        
       register: sql_output
