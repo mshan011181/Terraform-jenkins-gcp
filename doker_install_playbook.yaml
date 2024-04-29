@@ -1,27 +1,42 @@
 ---
-- name: Installing Docker and Updating apt packages
+- name: Install Docker and Ansible Galaxy collections
   hosts: webserver
-  become: yes  # This is required to execute commands with sudo privileges
-
+  gather_facts: false
   tasks:
-    - name: Check if Docker is installed
-      command: docker -v
-      ignore_errors: yes
-      register: docker_version
-
-    - name: Install Docker if not present
-      apt:
-        name: docker.io
+    - name: Install Docker dependencies
+      become: yes
+      package:
+        name: "{{ item }}"
         state: present
-      when: docker_version.rc != 0
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg
+        - lsb-release
+
+    - name: Add Docker GPG key
+      become: yes
+      shell: curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+
+    - name: Add Docker repository
+      become: yes
+      shell: echo "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable" > /etc/apt/sources.list.d/docker.list
 
     - name: Update apt cache
+      become: yes
       apt:
         update_cache: yes
 
-    - name: Upgrade all packages
+    - name: Install Docker
+      become: yes
       apt:
-        upgrade: dist
+        name: docker-ce
+        state: present
 
-    # Add more tasks as needed for specific packages or operations
+    - name: Install Docker Compose
+      become: yes
+      shell: curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
 
+    - name: Install required Ansible Galaxy collections
+      ansible.builtin.command: ansible-galaxy collection install community.docker
