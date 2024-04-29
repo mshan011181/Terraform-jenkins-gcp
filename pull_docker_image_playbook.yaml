@@ -39,6 +39,9 @@
         command: >
           /bin/bash -c '
           source /home/oracle/.bashrc &&
+          export ORACLE_SID=ORCLCDB &&
+          export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1 &&
+          export PATH=$ORACLE_HOME/bin:$PATH &&
           sqlplus -s sys/Shan9871 as sysdba <<EOF
           set echo on;
           select * from your_table;
