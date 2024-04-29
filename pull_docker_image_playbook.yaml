@@ -41,8 +41,9 @@
           source /home/oracle/.bashrc &&
           ls -ltr /tmp  &&
           export ORACLE_SID=ORCLCDB &&
+          echo $ORACLE_SID  &&
           export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1 &&
-          sqlplus /as sysdba                                        
+          echo $ORACLE_HOME &&                                                
           '
        
       register: sql_output
