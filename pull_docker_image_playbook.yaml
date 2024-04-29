@@ -35,8 +35,13 @@
     - name: Execute SQL command inside the container
       docker_container_exec:
         name: my_container
-        command: sqlplus / as sysdba <<EOF
-                  select name from v$database;
-                  exit;
-                EOF	   
-     
+        command: >
+          /bin/bash -c "
+          source /opt/oracle/.bashrc;
+          sqlplus / as sysdba <<EOF
+          select name from v\$database;
+          exit;
+          EOF
+          "    
+        
+    
