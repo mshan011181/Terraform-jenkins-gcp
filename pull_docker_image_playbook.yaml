@@ -40,6 +40,7 @@
           /bin/bash -c '
           source /home/oracle/.bashrc &&
           ls -ltr /tmp  &&
+          export ORACLE_SID=ORCLCDB
           sqlplus -s /nolog <<EOF
           connect / as sysdba          
           exit
