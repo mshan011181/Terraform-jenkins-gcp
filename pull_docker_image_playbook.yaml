@@ -37,12 +37,12 @@
         name: my_container
         image: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
         state: started 
-
-    - name: Copy code to VM
-      ansible.builtin.copy:
-        src: /home/shandba90/test.sh
-        dest: /home/shandba90/test.sh
-      delegate_to: localhost
+      
+    - name: Copy script file
+      copy:
+        src: /home/shandba90/test.sh  # Local path to your script file
+        dest: /home/shandba90/test.sh  # Destination path on the new VM
+        mode: "0755"  # Adjust permissions as needed    
 
     - name: Execute script using docker exec
       command: docker exec my_container /home/shandba90/test.sh 
@@ -51,5 +51,4 @@
     - debug:
         var: script_output.stdout
     
-
-    
+   
