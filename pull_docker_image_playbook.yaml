@@ -51,8 +51,7 @@
           select 1 from dual;
           select sysdate from dual;
           select name from v\$database;
-          -- Additional SQL commands if needed
-          exit;
+          -- Additional SQL commands if needed          
  EOF
       '
   register: sql_output
