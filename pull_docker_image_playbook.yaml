@@ -46,7 +46,14 @@
           echo $ORACLE_HOME &&
           export PATH=$ORACLE_HOME/bin:$PATH &&
           echo $PATH &&
-          echo "select name from v\$database;" | sqlplus -s sys/Shan9871 as sysdba          
+          sqlplus -s sys/Shan9871 as sysdba <<EOF
+          -- Your SQL script starts here
+          select 1 from dual;
+          select sysdate from dual;
+          select name from v\$database;
+          -- Additional SQL commands if needed
+          exit;
+          EOF          
           '
        
       register: sql_output
