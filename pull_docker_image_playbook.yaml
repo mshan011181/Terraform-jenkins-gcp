@@ -15,9 +15,9 @@
       register: metadata_result
       changed_when: false
 
-    - name: Retrieve metadata value
-      shell: "curl -H 'Metadata-Flavor: Google' http://metadata/computeMetadata/v1/instance/attributes/"
-      register: metadata_result
+    - name: Retrieve metadata value2
+      shell: "curl -H 'Metadata-Flavor: Google' http://metadata/computeMetadata/v1/instance/attributes/startup-script-custom"
+      register: metadata_result2
       changed_when: false
 
     - name: Authenticate with Docker
