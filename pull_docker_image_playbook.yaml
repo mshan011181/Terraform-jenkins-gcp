@@ -33,15 +33,16 @@
         state: started
         
     - name: Execute SQL command inside the container
-      docker_container_exec:
+      community.docker.docker_container_exec:
         name: my_container
         command: >
           /bin/bash -c "
           source /opt/oracle/.bashrc;
           sqlplus / as sysdba <<EOF
+          set heading off;
           select name from v\$database;
           exit;
           EOF
-          "    
+          " 
         
     
