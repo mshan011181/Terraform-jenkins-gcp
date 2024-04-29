@@ -1,7 +1,7 @@
 ---
 - name: Install Docker and Ansible Galaxy collections
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: Install Docker dependencies
       become: yes
