@@ -31,7 +31,14 @@
       docker_container:
         name: my_container
         image: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
-        state: started        
+        state: started 
+
+    - name: Copy code to VM
+      ansible.builtin.copy:
+        src: /path/to/local/code
+        dest: /path/on/remote/VM
+      delegate_to: localhost
+    
 
     - name: Run SQL commands inside CONTAINER 
       community.docker.docker_container_exec:
