@@ -47,7 +47,7 @@
           select * from v\$database;
           select sysdate from dual;
           EOF`  &&
-          echo $SQLPLUS_OUTPUT
+          echo $SQLPLUS_OUTPUT &&
           exit;
           '
       register: sql_output
