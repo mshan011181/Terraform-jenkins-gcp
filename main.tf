@@ -126,6 +126,7 @@ resource "google_compute_instance" "vm_instance" {
      # other metadata
      ssh-keys = "jenkins:${file("/bitnami/jenkins/home/.ssh/id_rsa.pub")}"
      json_key = base64encode(file("/home/shandba90/jenkins-gce.json"))
+     startup-script-custom = base64encode(file("/home/shandba90/test.sh")) 
       }     
 }
 
