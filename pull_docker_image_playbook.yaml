@@ -1,20 +1,52 @@
-- name: Execute SQL command inside the container
-  community.docker.docker_container_exec:
-    container: my_container
-    command: >
-      /bin/bash -c '
-      source /home/oracle/.bashrc &&
-      ls -ltr /tmp &&
-      export ORACLE_SID=ORCLCDB &&
-      echo $ORACLE_SID &&
-      export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1 &&
-      echo $ORACLE_HOME &&
-      export PATH=$ORACLE_HOME/bin:$PATH &&
-      echo $PATH &&
-      sqlplus -s sys/Shan9871 as sysdba <<EOF
-      select 1 from dual;
-      select sysdate from dual;
-      select name from v\$database;                   
-      EOF
-      '
-  
+---
+- name: Pull Docker image from GCR and run container
+  hosts: webserver
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+      become: yes
+
+    - name: Retrieve metadata value
+      shell: "curl -H 'Metadata-Flavor: Google' http://metadata/computeMetadata/v1/instance/attributes/json_key"
+      register: metadata_result
+      changed_when: false
+
+    - name: Authenticate with Docker
+      shell: >
+        echo "{{ metadata_result.stdout }}" | base64 -d > /home/shandba90/jenkins-gce.json && \
+        docker login us-central1-docker.pkg.dev -u _json_key -p "$(cat /home/shandba90/jenkins-gce.json)"
+      become: yes
+
+    - name: Pull Docker image
+      docker_image:
+        name: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
+        source: pull 
+        state: present
+        
+    - name: Run Docker container  # Ensure this line is properly aligned
+      docker_container:
+        name: my_container
+        image: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
+        state: started        
+
+    - name: Run SQL commands inside CONTAINER 
+      community.docker.docker_container_exec:
+        container: my_container
+        command: >
+          /bin/bash -c '
+          source /home/oracle/.bashrc &&
+          sqlplus -s sys/Shan9871 as sysdba <<EOF
+          set echo on;
+          select * from your_table;
+          select sysdate from dual;
+          exit;
+          EOF
+          '
+      register: sql_output
+
+    - debug:
+        var: sql_output
