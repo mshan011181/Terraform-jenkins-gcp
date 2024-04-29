@@ -38,7 +38,7 @@
         container: my_container
         command: >
           /bin/bash -c '
-          source /opt/oracle/.bashrc;
+          source /home/oracle/.bashrc;
           ls -ltr /tmp
           sqlplus "/as sysdba"
           '
