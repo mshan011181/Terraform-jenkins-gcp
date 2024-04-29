@@ -38,7 +38,7 @@
         container: my_container  
         command: >
           /bin/bash -c '
-          source /home/oracle/.bashrc;  
+          docker exec -it my_container bash
           sqlplus -S / as sysdba <<EOF
           set heading off;
           select name from v\$database;
