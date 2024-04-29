@@ -14,12 +14,7 @@
       shell: "curl -H 'Metadata-Flavor: Google' http://metadata/computeMetadata/v1/instance/attributes/json_key"
       register: metadata_result
       changed_when: false
-
-    - name: Retrieve metadata value2
-      shell: "curl -H 'Metadata-Flavor: Google' http://metadata/computeMetadata/v1/instance/attributes/startup-script-custom"
-      register: metadata_result2
-      changed_when: false
-
+ 
     - name: Authenticate with Docker
       shell: >
         echo "{{ metadata_result.stdout }}" | base64 -d > /home/shandba90/jenkins-gce.json && \
