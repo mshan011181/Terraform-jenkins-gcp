@@ -40,7 +40,6 @@
           /bin/bash -c '
           source /home/oracle/.bashrc;
           ls -ltr /tmp
-          sqlplus "/as sysdba"
           '
        
       register: sql_output
