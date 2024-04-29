@@ -38,8 +38,8 @@
         container: my_container
         command: >
           /bin/bash -c '
-          source /home/oracle/.bashrc;
-          ls -ltr /tmp  
+          source /home/oracle/.bashrc &&
+          ls -ltr /tmp  &&
           sqlplus -s /nolog <<EOF
           connect / as sysdba          
           exit
