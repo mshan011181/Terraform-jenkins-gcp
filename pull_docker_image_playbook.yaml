@@ -34,7 +34,7 @@
         
     - name: Execute SQL command inside the container
       docker_container_exec:
-        name: your_container_name
+        name: my_container
         command: sqlplus / as sysdba <<EOF
                   select name from v$database;
                   exit;
