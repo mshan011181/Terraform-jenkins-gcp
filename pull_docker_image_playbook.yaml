@@ -34,7 +34,6 @@
         
     - name: Execute SQL command inside the container
       community.docker.docker_container_exec:
-        name: my_container
         container: my_container  # Specify the name of your Docker container
         command: >
           /bin/bash -c "
