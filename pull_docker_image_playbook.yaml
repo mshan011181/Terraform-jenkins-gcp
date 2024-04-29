@@ -53,7 +53,7 @@
           select name from v\$database;
           -- Additional SQL commands if needed
           exit;
-   EOF
+ EOF
       '
   register: sql_output
 
