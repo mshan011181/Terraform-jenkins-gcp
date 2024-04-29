@@ -31,4 +31,12 @@
         name: my_container
         image: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
         state: started
+        
+    - name: Execute SQL command inside the container
+      docker_container_exec:
+        name: your_container_name
+        command: sqlplus / as sysdba <<EOF
+                  select name from v$database;
+                  exit;
+                EOF	   
      
