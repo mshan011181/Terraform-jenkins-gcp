@@ -41,7 +41,7 @@
            container: my_container  # Replace with your container name
            command: >
             /bin/bash -c '
-            source /opt/oracle/.bashrc;  # Assuming .bashrc sets up Oracle environment
+            source /home/oracle/.bashrc;  # Assuming .bashrc sets up Oracle environment
             sqlplus -S / as sysdba <<EOF
             set heading off;
             select name from v\$database;
