@@ -34,8 +34,7 @@
         
 
     - name: Connect to Oracle database in Docker container
-      gather_facts: false
-       tasks:
+      tasks:
         - name: Execute SQL command inside the container
           community.docker.docker_container_exec:
            container: my_container  # Replace with your container name
