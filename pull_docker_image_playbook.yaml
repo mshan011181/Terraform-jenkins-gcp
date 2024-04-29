@@ -36,7 +36,7 @@
     - name: Copy code to VM
       ansible.builtin.copy:
         src: /home/shandba90/test.sh
-        dest: /home/shandba90
+        dest: /home/shandba90/test.sh
       delegate_to: localhost
 
     - name: Execute script using docker exec
