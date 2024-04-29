@@ -44,7 +44,7 @@
           export PATH=$ORACLE_HOME/bin:$PATH &&
           sqlplus -s sys/Shan9871 as sysdba <<EOF
           set echo on;
-          select * from your_table;
+          select * from v\$database;
           select sysdate from dual;
           exit;
           EOF
