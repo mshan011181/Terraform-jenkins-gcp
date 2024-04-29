@@ -46,9 +46,8 @@
           echo $ORACLE_HOME &&
           export PATH=$ORACLE_HOME/bin:$PATH &&
           echo $PATH &&
-          sqlplus sys/Shan9871 as sysdba <<EOF
+          sqlplus sys/Shan9871 as sysdba &&
           select 1 from dual;
-          EOF
           '
        
       register: sql_output
