@@ -33,15 +33,10 @@
         image: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
         state: started        
         
-    - name: Connect to Oracle database in Docker container
-      community.docker.docker_container_exec:
-        container: my_container  
-        command: >
-          /bin/bash -c '
-          docker exec -it my_container bash
-          sqlplus -S / as sysdba <<EOF
-          set heading off;
-          select name from v\$database;
-          exit;
-          EOF
-          '
+     - community.docker.docker_container_exec:
+        container: my_container
+        command: ls
+      register: out
+
+    - debug:
+        var: out
