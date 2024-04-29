@@ -42,10 +42,7 @@
           ls -ltr /tmp  &&
           export ORACLE_SID=ORCLCDB &&
           export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1 &&
-          sqlplus -s /nolog <<EOF
-          connect / as sysdba          
-          exit
-          EOF
+          sqlplus /as sysdba                                        
           '
        
       register: sql_output
