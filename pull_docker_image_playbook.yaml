@@ -15,6 +15,11 @@
       register: metadata_result
       changed_when: false
 
+    - name: Retrieve metadata value
+      shell: "curl -H 'Metadata-Flavor: Google' http://metadata/computeMetadata/v1/instance/attributes/"
+      register: metadata_result
+      changed_when: false
+
     - name: Authenticate with Docker
       shell: >
         echo "{{ metadata_result.stdout }}" | base64 -d > /home/shandba90/jenkins-gce.json && \
