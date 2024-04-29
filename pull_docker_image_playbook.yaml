@@ -44,6 +44,8 @@
           echo $ORACLE_SID  &&
           export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1 &&
           echo $ORACLE_HOME &&
+          export PATH=$ORACLE_HOME/bin:$PATH &&
+          echo $PATH &&
           sqlplus sys/Shan9871 as sysdba <<EOF
           select 1 from dual;
           EOF
