@@ -43,7 +43,8 @@
           export ORACLE_SID=ORCLCDB &&
           echo $ORACLE_SID  &&
           export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1 &&
-          echo $ORACLE_HOME                                                
+          echo $ORACLE_HOME &&
+          sqlplus sys/Shan9871@ORCLCDB as sysdba
           '
        
       register: sql_output
