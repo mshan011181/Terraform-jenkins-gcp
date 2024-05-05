@@ -44,11 +44,11 @@
       register: command_output
       with_items:
         - sudo docker cp /home/shandba90/script1.sh my_container:/tmp/
-        - sudo docker exec -it my_container bash -c "/tmp/script1.sh > /tmp/script1.out"
-        - sudo docker exec -it my_container bash -c "cat /tmp/script1.out"
-        - sudo docker exec -it my_container bash -c /tmp/script1.sh > /tmp/script1.out   
-        - chmod 755 /tmp/script1.out
-        - cat /tmp/script1.out
+        - sudo docker exec -it my_container bash -c "/tmp/script1.sh > /tmp/script1.csv"
+        - sudo docker exec -it my_container bash -c "cat /tmp/script1.csv"
+        - sudo docker exec -it my_container bash -c /tmp/script1.sh > /tmp/script1.csv   
+        - chmod 755 /tmp/script1.csv
+        - cat /tmp/script1.csv
 
     - name: "Display command output"
       debug:
@@ -57,17 +57,12 @@
 
     - name: Fetch files
       fetch:
-        src: /tmp/script1.out
+        src: /tmp/script1.csv
         dest: /tmp/
         flat: yes  
 
     - name: "Display SQL*Plus output"
       debug:        
-        msg: "{{ lookup('file', '/tmp/script1.out') }}"
+        msg: "{{ lookup('file', '/tmp/script1.csv') }}"
 
-
-    - name: Store SQL*Plus output in a file on Jenkins
-      copy:
-        content: "{{ sqlplus_output.stdout }}"
-        dest: /tmp/script1.out
             
