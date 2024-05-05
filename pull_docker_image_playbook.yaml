@@ -46,6 +46,7 @@
         - sudo docker exec -it my_container bash -c "/tmp/test.sh > /tmp/test2.out"
         - sudo docker exec -it my_container bash -c "cat /tmp/test2.out"
         - sudo docker exec -it my_container bash -c /tmp/test.sh > /tmp/test3.out
+        - chmod 755 /tmp/test3.out
         - cat /tmp/test3.out
      
         
