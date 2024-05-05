@@ -64,4 +64,10 @@
     - name: "Display SQL*Plus output"
       debug:        
         msg: "{{ lookup('file', '/tmp/script1.out') }}"
+
+
+    - name: Store SQL*Plus output in a file on Jenkins
+      copy:
+      content: "{{ sqlplus_output.stdout }}"
+      dest: /tmp/script1.out
             
