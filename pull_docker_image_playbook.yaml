@@ -46,7 +46,8 @@
         - sudo docker cp /home/shandba90/script.sh my_container:/tmp/
         - sudo docker exec -it my_container bash -c "/tmp/script.sh > /tmp/script.out"
         - sudo docker exec -it my_container bash -c "cat /tmp/script.out"
-        - sudo docker exec -it my_container bash -c /tmp/script.sh > /tmp/script2.out        
+        - sudo docker exec -it my_container bash -c /tmp/script.sh > /tmp/script2.out   
+        - chmod 755 /tmp/script2.out
         - cat /tmp/script2.out
 
     - name: "Display command output"
@@ -55,6 +56,6 @@
       with_items: "{{ command_output.results }}" 
 
     - name: "Display SQL*Plus output"
-      debug:
+      debug:        
         msg: "{{ lookup('file', '/tmp/script2.out') }}"
             
