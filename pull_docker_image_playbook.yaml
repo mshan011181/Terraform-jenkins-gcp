@@ -52,5 +52,9 @@
     - name: "Display command output"
       debug:
         msg: "{{ item.stdout }}"
-      with_items: "{{ command_output.results }}"    
+      with_items: "{{ command_output.results }}" 
+
+    - name: "Display SQL*Plus output"
+      debug:
+        msg: "{{ lookup('file', '/tmp//script2.out') }}"
             
