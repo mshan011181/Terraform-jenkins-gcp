@@ -56,5 +56,5 @@
 
     - name: "Display SQL*Plus output"
       debug:
-        msg: "{{ lookup('file', '/tmp//script2.out') }}"
+        msg: "{{ lookup('file', '/tmp/script2.out') }}"
             
