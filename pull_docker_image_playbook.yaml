@@ -39,8 +39,8 @@
         dest: /home/shandba90/test.sh  # Destination path on the new VM
         mode: "0755"  # Adjust permissions as needed    
 
-    - name: Execute script using docker exec
-      command: docker exec my_container /home/shandba90/test.sh 
+    - name: Copy the SQL script to the container
+      command: sudo docker cp /home/shandba90/test.sh my_container:/tmp/
       register: script_output
       
     - debug:
