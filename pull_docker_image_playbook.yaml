@@ -35,8 +35,8 @@
       
     - name: Copy script file
       copy:
-        src: /home/shandba90/test.sh  # Local path to your script file
-        dest: /home/shandba90/test.sh  # Destination path on the new VM
+        src: /home/shandba90/script1.sh  # Local path to your script file
+        dest: /home/shandba90/script1.sh  # Destination path on the new VM
         mode: "0755"  # Adjust permissions as needed    
 
     - name: "Copy the SQL file to the container and execute it "
@@ -44,11 +44,11 @@
       register: command_output
       with_items:
         - sudo docker cp /home/shandba90/script.sh my_container:/tmp/
-        - sudo docker exec -it my_container bash -c "/tmp/script.sh > /tmp/script.out"
+        - sudo docker exec -it my_container bash -c "/tmp/script1.sh > /tmp/script1.out"
         - sudo docker exec -it my_container bash -c "cat /tmp/script.out"
-        - sudo docker exec -it my_container bash -c /tmp/script.sh > /tmp/script2.out   
-        - chmod 755 /tmp/script2.out
-        - cat /tmp/script2.out
+        - sudo docker exec -it my_container bash -c /tmp/script1.sh > /tmp/script1.out   
+        - chmod 755 /tmp/script1.out
+        - cat /tmp/script1.out
 
     - name: "Display command output"
       debug:
