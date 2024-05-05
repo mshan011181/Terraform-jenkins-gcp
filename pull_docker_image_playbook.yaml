@@ -41,6 +41,7 @@
 
     - name: "Copy the SQL file to the container and execute it "
       shell: "{{ item }}"
+      register: command_output
       with_items:
         - sudo docker cp /home/shandba90/test.sh my_container:/tmp/
         - sudo docker exec -it my_container bash -c "/tmp/test.sh > /tmp/test2.out"
@@ -48,6 +49,9 @@
         - sudo docker exec -it my_container bash -c /tmp/test.sh > /tmp/test3.out
         - chmod 755 /tmp/test3.out
         - cat /tmp/test3.out
-     
-        
-    
+
+    - name: "Display command output"
+      debug:
+        msg: "{{ item.stdout }}"
+      with_items: "{{ command_output.results }}"    
+            
