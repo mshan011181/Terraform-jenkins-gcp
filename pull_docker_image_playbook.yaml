@@ -43,5 +43,7 @@
       shell: "{{ item }}"
       with_items:
         - sudo docker cp /home/shandba90/test.sh my_container:/tmp/
-        - sudo docker exec -it my_container bash /tmp/test.sh
+        - sudo docker exec -it my_container bash /tmp/test.sh > /tmp/test.out
+        - sudo docker exec -it my_container bash cat /tmp/test.out
+        
     
