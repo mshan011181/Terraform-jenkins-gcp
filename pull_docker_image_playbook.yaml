@@ -55,6 +55,12 @@
         msg: "{{ item.stdout }}"
       with_items: "{{ command_output.results }}" 
 
+    - name: Fetch files
+      fetch:
+        src: /tmp/script1.out
+        dest: /tmp/
+        flat: yes  
+
     - name: "Display SQL*Plus output"
       debug:        
         msg: "{{ lookup('file', '/tmp/script1.out') }}"
