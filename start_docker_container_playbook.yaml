@@ -1,6 +1,6 @@
 
 ---
-- name: Start Docker container Oracle-DB
+- name: Run Docker container Oracle-DB
   hosts: webserver
   gather_facts: false
   become: yes
