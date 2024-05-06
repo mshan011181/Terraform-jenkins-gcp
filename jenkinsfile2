@@ -154,7 +154,7 @@ pipeline{
                   ip_address=`cat /tmp/ip_addr.txt`
                   echo $ip_address  >>  inventory                    
                   export ANSIBLE_CONFIG=/bitnami/jenkins/home/ansible.cfg
-                  ansible-playbook -i inventory run_docker_container_playbook.yaml 
+                  ansible-playbook -i inventory connect_docker_container_playbook.yaml 
                 }
             }
         }
