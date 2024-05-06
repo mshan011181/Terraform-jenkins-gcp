@@ -4,30 +4,7 @@
   hosts: webserver
   gather_facts: false
   become: yes
-  tasks:
-    - name: Install Docker
-      apt:
-        name: docker.io
-        state: present
-      become: yes
-
-    - name: Retrieve metadata value
-      shell: "curl -H 'Metadata-Flavor: Google' http://metadata/computeMetadata/v1/instance/attributes/json_key"
-      register: metadata_result
-      changed_when: false
- 
-    - name: Authenticate with Docker
-      shell: >
-        echo "{{ metadata_result.stdout }}" | base64 -d > /home/shandba90/jenkins-gce.json && \
-        docker login us-central1-docker.pkg.dev -u _json_key -p "$(cat /home/shandba90/jenkins-gce.json)"
-      become: yes
-
-    - name: Pull Docker image
-      docker_image:
-        name: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
-        source: pull 
-        state: present
-        
+  tasks:  
     - name: Run Docker container  # Ensure this line is properly aligned
       docker_container:
         name: my_container
