@@ -121,7 +121,7 @@ pipeline{
                             }
                      }
               }
-       stage('Pull Docker Image') {
+       stage('Pull 21c-ORACLE-DB Docker Image') {
                 when {
                           expression {
                          // return params.TerraformAction == 'Deploy'
