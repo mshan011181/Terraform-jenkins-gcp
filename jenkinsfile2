@@ -20,7 +20,7 @@ pipeline{
               git credentialsId: 'jenkins-personal-access-token', url: 'https://github.com/mshan011181/Terraform-jenkins-gcp.git'
                      }
                   }
-           stage('Initialize'){                  
+           stage('Terraform - Initialize and Plan'){                  
                           when {
                           expression {
                          // return params.TerraformAction == 'Deploy'
@@ -30,24 +30,12 @@ pipeline{
                      steps{ 
                          sh '''
                          export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json
-                         terraform init -reconfigure                                  
+                         terraform init -reconfigure
+                         terraform plan
                          '''
                             }
                  }
-          stage('Plan'){
-                          when {
-                          expression {
-                         // return params.TerraformAction == 'Deploy'
-                         return params.TerraformAction == 'Deploy' || params.TerraformAction == 'Destroy'
-                             }
-                          } 
-                          steps{ 
-                          sh '''
-                          export GOOGLE_APPLICATION_CREDENTIALS=/home/shandba90/jenkins-gce.json 
-                          terraform plan
-                          ''' 
-                             }
-                    }
+          
         stage('VM creation - with N/w and firewall'){
                           when {
                           expression {
