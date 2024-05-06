@@ -121,7 +121,7 @@ pipeline{
                             }
                      }
               }
-       stage('Pull 21c-ORACLE-DB Docker Image') {
+       stage('Pull Docker Image Oracle-DB-21c from GCR repo') {
                 when {
                           expression {
                          // return params.TerraformAction == 'Deploy'
