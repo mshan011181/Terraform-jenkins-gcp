@@ -1,16 +1,10 @@
 
 ---
-- name: Run Docker container Oracle-DB
+- name: Connect Docker container Oracle-DB
   hosts: webserver
   gather_facts: false
   become: yes
-  tasks:  
-    - name: Run Docker container  # Ensure this line is properly aligned
-      docker_container:
-        name: my_container
-        image: us-central1-docker.pkg.dev/devops-project-1-419603/docker-images2/oracle/database:21.3.0-se2
-        state: started 
-      
+  tasks:      
     - name: Copy script file
       copy:
         src: /home/shandba90/script1.sh  # Local path to your script file
