@@ -98,7 +98,7 @@ pipeline{
                             }
                      }
               }
-             stage('Ansible Provisioner - Install Docker') {
+             stage('Ansible Provisioner - Install Docker in new-VM') {
                 when {
                           expression {
                          // return params.TerraformAction == 'Deploy'
