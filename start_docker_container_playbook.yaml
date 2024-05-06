@@ -1,6 +1,6 @@
 
 ---
-- name: Pull Docker image from GCR and run container
+- name: Start Docker container Oracle-DB
   hosts: webserver
   gather_facts: false
   become: yes
