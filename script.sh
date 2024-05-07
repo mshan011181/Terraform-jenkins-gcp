@@ -7,7 +7,7 @@ export PATH=$ORACLE_HOME/bin:$PATH
 
 # Define SQL queries
 queries=(
-    "SELECT name from FROM v\$database;"
+    "SELECT name from v\$database;"
     "SELECT username  FROM dba_users;"    
 )
 
