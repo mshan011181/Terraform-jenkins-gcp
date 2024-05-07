@@ -167,9 +167,7 @@ pipeline{
                     echo "${htmlContent}"
                 }
             }
-        }
-
-      
+        }      
       stage('VM -destroy'){
                            when {
                           expression {
