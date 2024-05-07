@@ -1,12 +1,13 @@
 
 ---
-- name: Run Docker container Oracle-DB
+- name: Create Docker volume and Run the container
   hosts: webserver
   gather_facts: false
   become: yes
   tasks:  
     - name: Create Docker volume
-      name: oravolume
+      docker_volume:
+        name: oravolume
       
     - name: Run Docker container  # Ensure this line is properly aligned
       docker_container:
