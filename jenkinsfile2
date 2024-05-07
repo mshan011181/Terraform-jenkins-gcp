@@ -20,7 +20,7 @@ pipeline{
               git credentialsId: 'jenkins-personal-access-token', url: 'https://github.com/mshan011181/Terraform-jenkins-gcp.git'
                      }
                   }
-           stage('Terraform - Initialize and Plan'){                  
+           stage('Terraform-Init and Plan for new-VM '){                  
                           when {
                           expression {
                          // return params.TerraformAction == 'Deploy'
