@@ -131,7 +131,7 @@ pipeline{
             }
         }
 
-       stage('Connect docker-container-oracle-db-21c' in new-VM) {
+       stage('Connect docker-container-oracle-db-21c in new-VM') {
             when {
                           expression {
                           return params.TerraformAction == 'Deploy'
