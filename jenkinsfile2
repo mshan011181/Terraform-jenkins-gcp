@@ -112,7 +112,7 @@ pipeline{
                      }
               }
 
-       stage('Run docker-container-oracle-db') {
+       stage('Run docker-container-oracle-db-21c') {
             when {
                           expression {
                           return params.TerraformAction == 'Deploy'
@@ -131,7 +131,7 @@ pipeline{
             }
         }
 
-       stage('Connect docker-container-oracle-db') {
+       stage('Connect docker-container-oracle-db-21c') {
             when {
                           expression {
                           return params.TerraformAction == 'Deploy'
@@ -152,7 +152,7 @@ pipeline{
         }
 
      
-        stage('Display HTML Content') {
+        stage('Display SQL query output from DB') {
              when {
                           expression {
                           return params.TerraformAction == 'Deploy'
