@@ -36,7 +36,7 @@ pipeline{
                             }
                  }
           
-        stage('VM creation - with N/w and firewall'){
+        stage('new-VM creation - with N/w and firewall'){
                           when {
                           expression {
                           return params.TerraformAction == 'Deploy'
@@ -88,7 +88,7 @@ pipeline{
                      }
               }
 
-    stage('Pull Docker Image Oracle-DB-21c from GCR repo') {
+    stage('Pull Docker Image Oracle-DB-21c to new-VM from GCR repo') {
                 when {
                           expression {
                          // return params.TerraformAction == 'Deploy'
@@ -112,7 +112,7 @@ pipeline{
                      }
               }
 
-       stage('Run docker-container-oracle-db-21c') {
+       stage('Run docker-container-oracle-db-21c in new-VM') {
             when {
                           expression {
                           return params.TerraformAction == 'Deploy'
@@ -131,7 +131,7 @@ pipeline{
             }
         }
 
-       stage('Connect docker-container-oracle-db-21c') {
+       stage('Connect docker-container-oracle-db-21c' in new-VM) {
             when {
                           expression {
                           return params.TerraformAction == 'Deploy'
@@ -152,7 +152,7 @@ pipeline{
         }
 
      
-        stage('Display SQL query output from DB') {
+        stage('Display SQL query output from DB in new-VM') {
              when {
                           expression {
                           return params.TerraformAction == 'Deploy'
