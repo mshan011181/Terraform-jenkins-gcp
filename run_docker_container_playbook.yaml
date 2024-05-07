@@ -16,6 +16,15 @@
         state: started
         volumes:
           - oravolume:/dev/sda1
+
+    - name: Get container info
+      name: mycontainer
+       register: container_info
+
+- debug:
+msg: "Container is using volume: {{ item }}"
+loop: "{{ container_info.container_info[0].Mounts | map(attribute='Source') }}"
+when: "'myvolume' in item"     
           
     - name: Copy script file
       copy:
