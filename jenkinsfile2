@@ -163,7 +163,20 @@ pipeline{
             }
         }
 
-  
+     stage('Display HTML Table') {
+            steps {
+                script {
+                    // Read HTML file content
+                    def htmlContent = readFile 'path/to/your/html/file.html'
+                    
+                    // Output HTML content to Jenkins console
+                    echoHtml("""
+                    ${htmlContent}
+                    """)
+                      }
+                    }
+               }
+          
       stage('VM -destroy'){
                            when {
                           expression {
