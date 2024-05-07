@@ -36,7 +36,7 @@ pipeline{
                             }
                  }
           
-        stage('new-VM creation - with N/w and firewall'){
+        stage('Create new-VM  with N/w and firewall etc'){
                           when {
                           expression {
                           return params.TerraformAction == 'Deploy'
