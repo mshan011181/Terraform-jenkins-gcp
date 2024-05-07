@@ -109,7 +109,8 @@ pipeline{
                             }
                      }
               }
-       stage('Pull Docker Image Oracle-DB-21c from GCR repo') {
+
+    stage('Pull Docker Image Oracle-DB-21c from GCR repo') {
                 when {
                           expression {
                          // return params.TerraformAction == 'Deploy'
@@ -163,20 +164,20 @@ pipeline{
             }
         }
 
-     stage('Display HTML Table') {
+     
+        stage('Display HTML Content') {
             steps {
                 script {
                     // Read HTML file content
                     def htmlContent = readFile '/tmp/script1.html'
                     
                     // Output HTML content to Jenkins console
-                    echoHtml("""
-                    ${htmlContent}
-                    """)
-                      }
-                    }
-               }
-          
+                    echo "${htmlContent}"
+                }
+            }
+        }
+
+      
       stage('VM -destroy'){
                            when {
                           expression {
