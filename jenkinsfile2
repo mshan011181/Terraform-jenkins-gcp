@@ -167,7 +167,7 @@ pipeline{
             steps {
                 script {
                     // Read HTML file content
-                    def htmlContent = readFile 'path/to/your/html/file.html'
+                    def htmlContent = readFile '/tmp/script1.html'
                     
                     // Output HTML content to Jenkins console
                     echoHtml("""
